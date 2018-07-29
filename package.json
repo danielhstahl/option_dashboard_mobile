@@ -1,5 +1,6 @@
 {
   "name": "option_dashboard_mobile",
+  "homepage": "https://phillyfan1138.github.io/option_dashboard_mobile",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:3001",
@@ -7,6 +8,7 @@
     "@material-ui/core": "^1.4.1",
     "@material-ui/icons": "^2.0.0",
     "react": "^16.4.1",
+    "gh-pages": "^1.2.0",
     "react-dom": "^16.4.1",
     "react-flexbox-grid": "^2.1.2",
     "react-redux": "^5.0.7",
@@ -23,7 +25,9 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "start-production": "REACT_APP_CUST=production react-scripts start",
-    "start-mock-server": "node mockServer/index"
+    "start-mock-server": "node mockServer/index",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "devDependencies": {
     "body-parser": "^1.18.3",
