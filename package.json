@@ -1,0 +1,32 @@
+{
+  "name": "option_dashboard_mobile",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://localhost:3001",
+  "dependencies": {
+    "@material-ui/core": "^1.4.1",
+    "@material-ui/icons": "^2.0.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-flexbox-grid": "^2.1.2",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "1.1.4",
+    "react-swipeable-views": "^0.12.15",
+    "redux": "^4.0.0",
+    "typeface-roboto": "0.0.54",
+    "victory": "^30.1.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "start-production": "REACT_APP_CUST=production react-scripts start",
+    "start-mock-server": "node mockServer/index"
+  },
+  "devDependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3"
+  }
+}
