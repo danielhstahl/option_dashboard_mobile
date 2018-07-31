@@ -7,27 +7,21 @@ import SelectTicker from './SelectTicker'
 import SelectMaturity from './SelectMaturity'
 import SplineCurves from './Graphs'
 import MarketValueTable from './MarketValueTable'
-import NextTabButton from './NextTabButton'
 
-const SetupScreen=()=>(
+const CalibrationScreen=()=>(
     <Grid fluid>
-        <Row>
+       <Row>
             <Col xsOffset={1} smOffset={2} xs={10} sm={8}>
-                <p>Step 1: Select Fortune 500 Company!</p>
-                <SelectTicker/>
+                <MarketValueTable />
             </Col>
         </Row>
         <Row>
             <Col xsOffset={1} smOffset={2} xs={10} sm={8}>
-                <p>Step 2: Select Option Maturity!</p>
-                <SelectMaturity/>
-            </Col>
-        </Row>
-        <Row>
-            <Col xsOffset={1} smOffset={2} xs={10} sm={8}>
-                <NextTabButton nextTabLink='/tab/2'/>
+                <SplineCurves />
             </Col>
         </Row>
     </Grid>
 )
-export default SetupScreen
+export default CalibrationScreen
+
+
