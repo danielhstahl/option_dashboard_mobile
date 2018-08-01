@@ -91,4 +91,4 @@ app.get('/options/:ticker/prices/:maturity', (req, res)=>{
     res.send(handlers.getOptionPrices(req))
 })
 
-app.listen('3001', ()=>console.log("mock server on 3001"))
+app.listen('3002', ()=>console.log("mock server on 3002"))

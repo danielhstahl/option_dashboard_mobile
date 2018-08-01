@@ -3,7 +3,7 @@
   "homepage": "https://phillyfan1138.github.io/option_dashboard_mobile",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3001",
+  "proxy": "http://localhost:3002",
   "dependencies": {
     "@material-ui/core": "^1.4.1",
     "@material-ui/icons": "^2.0.0",
