@@ -21,10 +21,14 @@ const domainPadding=25
 const title='Spline of Option Prices'
 const xLabel='Normalized Log Strike'
 const yLabel='Transformed Option Price'
-const SplineCurves=({spline})=>(
+const SplineCurves=({spline})=>{
+    console.log(spline)
+    return (
     spline.curve?<ResponsiveContainer 
-        width={700}
-        height={'80%'}
+        //width={700}
+        //height={500}
+        minWidth={200}
+        minHeight={200}
     >
         <LineChart data={spline.curve}>
             <Line dataKey='transformed_option' type="monotone"/>
@@ -33,6 +37,7 @@ const SplineCurves=({spline})=>(
     </ResponsiveContainer>
     :null
 )
+}
 
 const mapStateToProps=({marketValues})=>({
     spline:marketValues.spline

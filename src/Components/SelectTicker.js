@@ -14,7 +14,7 @@ const InputTicker=withStyles(inputFieldTheme)(({
     options, classes
 })=>(
     <LoadData onLoad={onLoad}>
-            <FormControl className={classes.inputField}>
+        <FormControl className={classes.inputField}>
             <InputLabel htmlFor="ticker-helper">Stock Ticker</InputLabel>
             <Select
                 native
