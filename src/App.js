@@ -1,16 +1,9 @@
 import React from 'react'
 import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import IconButton from '@material-ui/core/IconButton'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
-import MenuIcon from '@material-ui/icons/Menu'
-import Typography from '@material-ui/core/Typography'
-import Grid from '@material-ui/core/Grid'
-import appBarTheme from 'Themes/appBar'
-import bodyTheme from 'Themes/body'
-import {Route} from 'react-router-dom'
-import { withStyles } from '@material-ui/core'
+
+import {Route, Redirect, Switch} from 'react-router-dom'
 import SetupScreen from 'Components/SetupScreen'
 import IntroScreen from 'Components/IntroScreen'
 import CalibrationScreen from './Components/CalibrationScreen'
@@ -28,27 +21,26 @@ const AppBarInst=({match, history})=>{
   </AppBar>
 )
 }
-const baseUrl='/setup'
-
 
 const App=()=>[
+  <Redirect key='redirect' from='/' to='/tab/1' exact/>,
   <Route 
-      path='/tab/:tabId'
-      key='home'
-      render={props=><AppBarInst key='appbar' {...props}/>}
+    key='bannerroute'
+    path='/tab/:tabId'
+    key='home'
+    render={props=><AppBarInst key='appbar' {...props}/>}
   />,
   <Route 
-      path='/tab/1'
-      key='setup'
-      exact
-      component={SetupScreen}
+    key='marketoptions'
+    path='/tab/1'
+    exact
+    component={SetupScreen}
   />,
   <Route 
+    key='calibration'
     path='/tab/2' 
     component={CalibrationScreen} 
-    key='calibration' 
     exact
   />
 ]
-
 export default App

@@ -4,6 +4,7 @@ import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
+import WarningNoValues from './WarningNoValues'
 import {connect} from 'react-redux'
 import {FIXED_DECIMALS} from 'globals/constants'
 const MarketValueTable=({attributes})=>(
@@ -20,11 +21,11 @@ const MarketValueTable=({attributes})=>(
             <TableCell>{attributes.rate.toFixed(FIXED_DECIMALS)}</TableCell>
             <TableCell>{attributes.maturity.toFixed(FIXED_DECIMALS)}</TableCell>
         </TableBody>
-    </Table>:null
+    </Table>:<WarningNoValues/>
 )
 
-const mapStateToProps=({marketValues})=>({
-    attributes:marketValues.attributes
+const mapStateToProps=({calibratorValues})=>({
+    attributes:calibratorValues.attributes
 })
 
 export default connect(mapStateToProps)(MarketValueTable)

@@ -7,8 +7,8 @@ import SelectTicker from './SelectTicker'
 import SelectMaturity from './SelectMaturity'
 import SplineCurves from './Graphs'
 import MarketValueTable from './MarketValueTable'
-
-const CalibrationScreen=()=>(
+import {ChartsTab} from './NextTabButton'
+const CalibrationScreen=({history})=>(
     <Grid fluid>
        <Row>
             <Col xsOffset={1} smOffset={2} xs={10} sm={8}>
@@ -18,6 +18,14 @@ const CalibrationScreen=()=>(
         <Row>
             <Col xsOffset={1} smOffset={2} xs={10} sm={8}>
                 <SplineCurves />
+            </Col>
+        </Row>
+        <Row>
+            <Col xsOffset={1} smOffset={2} xs={10} sm={8}>
+                <p>
+                    The model will calibrate the characteristic function to approximate the fitted spline above.  The fit will be better when the option prices have less arbitrage.
+                </p>
+                <ChartsTab nextTabLink='/tab/3' history={history}/> 
             </Col>
         </Row>
     </Grid>

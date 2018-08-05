@@ -7,8 +7,7 @@ import SelectTicker from './SelectTicker'
 import SelectMaturity from './SelectMaturity'
 import SplineCurves from './Graphs'
 import MarketValueTable from './MarketValueTable'
-import NextTabButton from './NextTabButton'
-
+import {CalibrationTab} from './NextTabButton'
 const SetupScreen=()=>(
     <Grid fluid>
         <Row>
@@ -25,9 +24,10 @@ const SetupScreen=()=>(
         </Row>
         <Row>
             <Col xsOffset={1} smOffset={2} xs={10} sm={8}>
-                <NextTabButton nextTabLink='/tab/2'/>
+                <CalibrationTab nextTabLink='/tab/2'/>
             </Col>
         </Row>
     </Grid>
 )
+
 export default SetupScreen

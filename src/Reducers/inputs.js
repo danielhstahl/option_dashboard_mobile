@@ -1,4 +1,4 @@
-import {TICKER_VALUE, MATURITY_VALUE} from 'Actions/constants'
+import {TICKER_VALUE, MATURITY_VALUE, LOADING} from 'Actions/constants'
 import { combineReducers } from 'redux'
 
 const ticker=(state='', action)=>{
@@ -17,8 +17,17 @@ const maturity=(state='', action)=>{
             return state
     }
 }
+const loading=(state=false, action)=>{
+    switch(action.type){
+        case LOADING:
+            return action.value
+        default:
+            return state
+    }
+}
 
 export default combineReducers({
     ticker,
-    maturity
+    maturity,
+    loading
 })

@@ -1,9 +1,7 @@
 import {
     OPTION_MATURITIES, 
     TICKERS,
-    SPLINE,
-    MARKET_VALUES,
-    ASSET_PRICE
+    ASSET_PRICE,
 } from 'Actions/constants'
 
 import { combineReducers } from 'redux'
@@ -33,27 +31,10 @@ const tickers=(state=[], action)=>{
     }
 }
 
-const spline=(state={}, action)=>{
-    switch(action.type){
-        case SPLINE:
-            return action.spline
-        default:
-            return state
-    }
-}
-const attributes=(state={}, action)=>{
-    switch(action.type){
-        case MARKET_VALUES:
-            return action.attributes
-        default:
-            return state
-    }
-}
+
 
 export default combineReducers({
     maturities,
     tickers,
     assetPrice,
-    spline,
-    attributes
 })

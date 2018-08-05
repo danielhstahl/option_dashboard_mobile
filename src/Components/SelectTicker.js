@@ -8,6 +8,7 @@ import {inputFieldTheme} from 'Themes/inputFields'
 import {withStyles} from '@material-ui/core/styles'
 import InputLabel from '@material-ui/core/InputLabel'
 import LoadData from './LoadData'
+import {getCalibrationBounds} from 'Actions/calibrator'
 const InputTicker=withStyles(inputFieldTheme)(({
     onChange, value, 
     onLoad,
@@ -50,10 +51,14 @@ const onChange=dispatch=>{
         optionFeaturesGet(ticker)
     }
 }
+const onLoad=dispatch=>()=>{
+    getTickers(dispatch)
+    getCalibrationBounds(dispatch)
+}
 
 const mapDispatchToProps=dispatch=>({
     onChange:onChange(dispatch),
-    onLoad:getTickers(dispatch)
+    onLoad:onLoad(dispatch)
 })
 export default connect(
     mapStateToProps,

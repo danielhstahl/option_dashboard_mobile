@@ -23,7 +23,7 @@ export const getOptionFeatures=dispatch=>ticker=>gFetch(`options/${ticker}/matur
     })
 })
 
-export const getTickers=dispatch=>()=>gFetch('options/tickers').then(tickers=>{
+export const getTickers=dispatch=>gFetch('options/tickers').then(tickers=>{
     dispatch({
         type:TICKERS,
         tickers

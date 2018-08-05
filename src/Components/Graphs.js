@@ -39,8 +39,8 @@ const SplineCurves=({spline})=>{
 )
 }
 
-const mapStateToProps=({marketValues})=>({
-    spline:marketValues.spline
+const mapStateToProps=({calibratorValues})=>({
+    spline:calibratorValues.spline
 })
 
 export default connect(
