@@ -12,6 +12,7 @@ const gCalibrate=calibration=>dispatch=>body=>{
         type:LOADING,
         value:true
     })
+    console.log(body)
     return pFetch(`calibrator/${calibration}`, body)
         .then(parameters=>{
             console.log(parameters)
@@ -21,7 +22,10 @@ const gCalibrate=calibration=>dispatch=>body=>{
             })
             return dispatch({
                 type:CALIBRATED_PARAMETERS,
-                parameters:parameters.optimal_parameters
+                parameters:{
+                    ...parameters.optimal_parameters,
+                    mse:parameters.fn_result
+                }
             })
         })
 } 

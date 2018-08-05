@@ -36,7 +36,7 @@ const handlers={
         const {calibration}=req.params
         return calibration==='spline'?spline:{
             optimal_parameters:{
-                "rho":-0.19246,"sigma":0.244064,"speed":2.7586,"v0":1.01803,"eta_v":2.58261,"mse":8.69005e-05
+                "rho":-0.19246,"sigma":0.244064,"speed":2.7586,"v0":1.01803,"eta_v":2.58261
             },
             fn_result:0.0001
         }
@@ -97,6 +97,17 @@ app.post('/calibrator/:calibration', (req, res)=>{
 })
 app.get('/parameters/parameter_ranges', (req, res)=>{
     res.send(handlers.defaultParameters(req))    
+})
+
+app.post('/calculator/:optionType/:sensitivityType', (req, res)=>{
+    setTimeout(()=>{
+        res.send(handlers.calculator(req))
+    }, 1000)
+})
+app.post('/density/:densityType', (req, res)=>{
+    setTimeout(()=>{
+        res.send(handlers.calculator(req))
+    }, 1000)
 })
 
 app.listen('3002', ()=>console.log("mock server on 3002"))

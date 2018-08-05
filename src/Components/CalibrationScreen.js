@@ -1,14 +1,10 @@
 import React from 'react'
-import Button from '@material-ui/core/Button'
-import {Link} from 'react-router-dom'
 import { Grid, Row, Col } from 'react-flexbox-grid'
-import { withStyles } from '@material-ui/core'
-import SelectTicker from './SelectTicker'
-import SelectMaturity from './SelectMaturity'
 import SplineCurves from './Graphs'
 import MarketValueTable from './MarketValueTable'
-import {ChartsTab} from './NextTabButton'
-const CalibrationScreen=({history})=>(
+import {ChartsTab, CalibrateButton} from './NextTabButton'
+import CalibratedValueTable from './CalibratedValueTable'
+const CalibrationScreen=()=>(
     <Grid fluid>
        <Row>
             <Col xsOffset={1} smOffset={2} xs={10} sm={8}>
@@ -25,7 +21,17 @@ const CalibrationScreen=({history})=>(
                 <p>
                     The model will calibrate the characteristic function to approximate the fitted spline above.  The fit will be better when the option prices have less arbitrage.
                 </p>
-                <ChartsTab nextTabLink='/tab/3' history={history}/> 
+                <CalibrateButton/> 
+            </Col>
+        </Row>
+        <Row>
+            <Col xsOffset={1} smOffset={2} xs={10} sm={8}>
+                <CalibratedValueTable />
+            </Col>
+        </Row>
+        <Row>
+            <Col xsOffset={1} smOffset={2} xs={10} sm={8}>
+                <ChartsTab nextTabLink='/tab/3' />
             </Col>
         </Row>
     </Grid>

@@ -17,9 +17,11 @@ const MarketValueTable=({attributes})=>(
             </TableRow>
         </TableHead>
         <TableBody>
-            <TableCell>{attributes.asset.toFixed(FIXED_DECIMALS)}</TableCell>
-            <TableCell>{attributes.rate.toFixed(FIXED_DECIMALS)}</TableCell>
-            <TableCell>{attributes.maturity.toFixed(FIXED_DECIMALS)}</TableCell>
+            <TableRow>
+                <TableCell>{attributes.asset.toFixed(FIXED_DECIMALS)}</TableCell>
+                <TableCell>{attributes.rate.toFixed(FIXED_DECIMALS)}</TableCell>
+                <TableCell>{attributes.maturity.toFixed(FIXED_DECIMALS)}</TableCell>
+            </TableRow>
         </TableBody>
     </Table>:<WarningNoValues/>
 )

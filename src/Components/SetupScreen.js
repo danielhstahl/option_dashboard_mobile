@@ -1,12 +1,7 @@
 import React from 'react'
-import Button from '@material-ui/core/Button'
-import {Link} from 'react-router-dom'
 import { Grid, Row, Col } from 'react-flexbox-grid'
-import { withStyles } from '@material-ui/core'
 import SelectTicker from './SelectTicker'
 import SelectMaturity from './SelectMaturity'
-import SplineCurves from './Graphs'
-import MarketValueTable from './MarketValueTable'
 import {CalibrationTab} from './NextTabButton'
 const SetupScreen=()=>(
     <Grid fluid>
