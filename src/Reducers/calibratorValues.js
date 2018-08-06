@@ -29,7 +29,8 @@ const attributesToCalibrate=[
     'rho'
 ]
 const defaultAttributes={
-    num_u:8
+    num_u:8,
+    quantile:.01
 }
 
 const attributes=(state=defaultAttributes, action)=>{

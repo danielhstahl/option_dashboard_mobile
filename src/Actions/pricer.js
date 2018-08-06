@@ -12,7 +12,7 @@ const mapTypeToAction={
     put:PUT
 }
 
-export const getPricesAndIV=(dispatch, type)=>({sensitivity, ...body})=>{
+const getPricesAndIV=type=>dispatch=>({sensitivity, ...body})=>{
     dispatch({
         type:LOADING,
         value:true
@@ -37,13 +37,16 @@ export const getPricesAndIV=(dispatch, type)=>({sensitivity, ...body})=>{
         })
 }
 
+export const getPut=getPricesAndIV('put')
+export const getCall=getPricesAndIV('call')
 
-const gDensity=actionType=>dispatch=>(type, body)=>{
+
+const gDensity=(type, densityType)=>dispatch=>body=>{
     dispatch({
         type:LOADING,
         value:true
     })
-    return pFetch(`density/${type}`, body)
+    return pFetch(`density/${densityType}`, body)
         .then(results=>{
             console.log(results)
             dispatch({
@@ -51,10 +54,10 @@ const gDensity=actionType=>dispatch=>(type, body)=>{
                 value:false
             })
             return dispatch({
-                type:actionType,
+                type,
                 value:results
             })
         })
 }
-export const getDensity=gDensity(DENSITY)
-export const getRiskMetrics=gDensity(RISK_METRICS)
+export const getDensity=gDensity(DENSITY, 'density')
+export const getRiskMetrics=gDensity(RISK_METRICS, 'riskmetric')

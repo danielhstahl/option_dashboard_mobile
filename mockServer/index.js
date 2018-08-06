@@ -43,7 +43,7 @@ const handlers={
     },
     density:req=>{
         const {densityType}=req.params
-        return densityType==='raw'?[{"value":109.545,"at_point":95},{"value":107.437,"at_point":100},{"value":96.7123,"at_point":130},{"value":91.1387,"at_point":150},{"value":88.7082,"at_point":160},{"value":87.5658,"at_point":165},{"value":86.4664,"at_point":170},{"value":85.4065,"at_point":175},{"value":83.392,"at_point":185},{"value":82.4319,"at_point":190},{"value":81.4998,"at_point":195},{"value":80.5938,"at_point":200},{"value":78.8528,"at_point":210},{"value":74.1016,"at_point":240},{"value":72.6501,"at_point":250}]:{expected_shortfall:-2.0, value_at_risk:-1.9}
+        return densityType==='density'?[{"value":109.545,"at_point":95},{"value":107.437,"at_point":100},{"value":96.7123,"at_point":130},{"value":91.1387,"at_point":150},{"value":88.7082,"at_point":160},{"value":87.5658,"at_point":165},{"value":86.4664,"at_point":170},{"value":85.4065,"at_point":175},{"value":83.392,"at_point":185},{"value":82.4319,"at_point":190},{"value":81.4998,"at_point":195},{"value":80.5938,"at_point":200},{"value":78.8528,"at_point":210},{"value":74.1016,"at_point":240},{"value":72.6501,"at_point":250}]:{expected_shortfall:-2.0, value_at_risk:-1.9}
     },
     defaultParameters:req=>{
         return {"rho":{"upper":1, "lower":-1},"rate":{"upper":0.4, "lower":0},"speed":{"upper":3, "lower":0},"v0":{"upper":1.8, "lower":0.2},"sig_l":{"upper":2, "lower":0},"eta_v":{"upper":3, "lower":0},"sigma":{"upper":1, "lower":0},"mu_l":{"upper":1, "lower":-1},"num_u":{"upper":10, "lower":5},"lambda":{"upper":2, "lower":0}}

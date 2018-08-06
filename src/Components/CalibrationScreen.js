@@ -7,17 +7,17 @@ import CalibratedValueTable from './CalibratedValueTable'
 const CalibrationScreen=()=>(
     <Grid fluid>
        <Row>
-            <Col xsOffset={1} smOffset={2} xs={10} sm={8}>
+            <Col  xs={12} >
                 <MarketValueTable />
             </Col>
         </Row>
         <Row>
-            <Col xsOffset={1} smOffset={2} xs={10} sm={8}>
+            <Col xs={12} >
                 <SplineCurves />
             </Col>
         </Row>
         <Row>
-            <Col xsOffset={1} smOffset={2} xs={10} sm={8}>
+            <Col xs={12} >
                 <p>
                     The model will calibrate the characteristic function to approximate the fitted spline above.  The fit will be better when the option prices have less arbitrage.
                 </p>
@@ -25,12 +25,12 @@ const CalibrationScreen=()=>(
             </Col>
         </Row>
         <Row>
-            <Col xsOffset={1} smOffset={2} xs={10} sm={8}>
+            <Col xs={12}>
                 <CalibratedValueTable />
             </Col>
         </Row>
         <Row>
-            <Col xsOffset={1} smOffset={2} xs={10} sm={8}>
+            <Col xs={12}>
                 <ChartsTab nextTabLink='/tab/3' />
             </Col>
         </Row>

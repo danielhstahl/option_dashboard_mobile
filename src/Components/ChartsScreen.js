@@ -1,5 +1,5 @@
 import React from 'react'
-import {getPricesAndIV, getDensity} from 'Actions/pricer'
+import {getCall, getPut, getDensity, getRiskMetrics} from 'Actions/pricer'
 import { Grid, Row, Col } from 'react-flexbox-grid'
 import {connect} from 'react-redux'
 import PutCallChart from './PutCallChart'
@@ -8,6 +8,7 @@ import ImpliedVolatilityChart from './ImpliedVolatilityChart'
 import LoadData from './LoadData'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
+import WarningNoValues from './WarningNoValues'
 /** const parameters={
         num_u:8,
         rate,
@@ -31,13 +32,19 @@ export const sensitivities=[
     {value:'gamma', label:'Gamma'},
     {value:'theta', label:'Theta'}
 ]
-const handleChange=(match, history)=>(_, value)=>history.push(getBaseUrl(match)+sensitivities[value].value)
-const SensitivityNav=({match, history})=>(
+const handleChange=(match, history, updateOptions, attributes)=>
+    (_, value)=>{
+        const {value:sensitivity}=sensitivities[value]
+        updateOptions({...attributes, sensitivity})
+        history.push(getBaseUrl(match)+sensitivity)
+    }
+    
+const SensitivityNav=({match, history, updateOptions, attributes})=>(
     <Tabs 
     value={sensitivities
         .findIndex(v=>v.value===match.params.sensitivity)
     } 
-    onChange={handleChange(match, history)} 
+    onChange={handleChange(match, history, updateOptions, attributes)} 
     fullWidth
     >
     {sensitivities.map(({value, label})=>{
@@ -45,8 +52,8 @@ const SensitivityNav=({match, history})=>(
     })}
     </Tabs>
 )
-
-const ChartsScreen=({onLoad, attributes, match, history})=>(
+const checkRequiredFields=({maturity, asset, strikes, prices})=>strikes&&maturity&&asset&&prices
+const ChartsScreen=({onLoad, attributes, match, history, updateOptions})=>checkRequiredFields(attributes)?(
     <LoadData 
         onLoad={onLoad} 
         attributes={attributes} 
@@ -54,32 +61,35 @@ const ChartsScreen=({onLoad, attributes, match, history})=>(
     >
         <Grid fluid>
             <Row>
-                <Col xsOffset={1} smOffset={2} xs={10} sm={8}>
-                    <PutCallChart 
-                        sensitivity={match.params.sensitivity}
-                    />
+                <Col xs={12}>
+                    <PutCallChart />
                 </Col>
             </Row>
             <Row>
-                <Col xsOffset={1} smOffset={2} xs={10} sm={8}>
-                    <SensitivityNav match={match} history={history}/>
+                <Col xs={12}>
+                    <SensitivityNav match={match} history={history} attributes={attributes} updateOptions={updateOptions}/>
                 </Col>
             </Row>
             <Row>
-                <Col xsOffset={1} smOffset={2} xs={10} sm={8}>
+                <Col xs={12}>
                    <ImpliedVolatilityChart/>
                 </Col>
             </Row>
             <Row>
-                <Col xsOffset={1} smOffset={2} xs={10} sm={8}>
+                <Col xs={12}>
                    <DensityChart/>
                 </Col>
             </Row>
             
         </Grid>
     </LoadData>
-)
-
+):(<Grid fluid>
+    <Row>
+        <Col xs={12}>
+        <WarningNoValues/>
+        </Col>
+    </Row>
+</Grid>)
 const mapStateToProps=({calibratorValues})=>({
     attributes:{
         ...calibratorValues.attributes, ...calibratorValues.calibrated
@@ -87,19 +97,31 @@ const mapStateToProps=({calibratorValues})=>({
 })
 
 const onLoad=dispatch=>{
-    const getPut=getPricesAndIV(dispatch, 'put')
-    const getCall=getPricesAndIV(dispatch, 'call')
+    const getP=getPut(dispatch)
+    const getC=getCall(dispatch)
     const getD=getDensity(dispatch)
+    const getR=getRiskMetrics(dispatch)
     return ({attributes, sensitivity})=>{
         const objToSend={...attributes, sensitivity}
-        getPut(objToSend)
-        getCall(objToSend)
+        getP(objToSend)
+        getC(objToSend)
         getD(attributes)
+        getR(attributes)
+    }
+}
+const updateOptions=dispatch=>{
+    const getP=getPut(dispatch)
+    const getC=getCall(dispatch)
+    return attributes=>{
+        console.log(attributes)
+        getP(attributes)
+        getC(attributes)
     }
 }
 
 const mapDispatchToProps=dispatch=>({
-    onLoad:onLoad(dispatch)
+    onLoad:onLoad(dispatch),
+    updateOptions:updateOptions(dispatch)
 })
 export default connect(
     mapStateToProps,

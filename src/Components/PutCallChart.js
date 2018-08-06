@@ -1,5 +1,5 @@
 import React from 'react'
-import { LineChart, Line, ResponsiveContainer, XAxis} from 'recharts'
+import { LineChart, Line, ResponsiveContainer, XAxis, Legend} from 'recharts'
 
 import {connect} from 'react-redux'
 
@@ -19,6 +19,7 @@ const PutCallChart=({call, put})=>{
                 minHeight={200}
             >
                 <LineChart data={combinedValues}>
+                    <Legend verticalAlign="top" height={36}/>
                     <Line dataKey='call' type="monotone"/>
                     <Line dataKey='put' type="monotone"/>
                     <XAxis dataKey='at_point'/>

@@ -30,7 +30,7 @@ export const getTickers=dispatch=>gFetch('options/tickers').then(tickers=>{
     })
 })
 
-export const getSpline=dispatch=>(ticker, maturity)=>gFetch(`options/${ticker}/prices/${maturity}`).then(({curve, points, ...attributes})=>{
+export const getSpline=dispatch=>(ticker, maturity)=>gFetch(`options/${ticker}/prices/${maturity}?minRelativeBidAskSpread=.1&minOpenInterest=25`).then(({curve, points, ...attributes})=>{
     console.log(curve)
     console.log(points)
     console.log(attributes)

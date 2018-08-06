@@ -6,19 +6,19 @@ import {CalibrationTab} from './NextTabButton'
 const SetupScreen=()=>(
     <Grid fluid>
         <Row>
-            <Col xsOffset={1} smOffset={2} xs={10} sm={8}>
+            <Col xs={12}>
                 <p>Step 1: Select Fortune 500 Company!</p>
                 <SelectTicker/>
             </Col>
         </Row>
         <Row>
-            <Col xsOffset={1} smOffset={2} xs={10} sm={8}>
+            <Col xs={12}>
                 <p>Step 2: Select Option Maturity!</p>
                 <SelectMaturity/>
             </Col>
         </Row>
         <Row>
-            <Col xsOffset={1} smOffset={2} xs={10} sm={8}>
+            <Col xs={12}>
                 <CalibrationTab nextTabLink='/tab/2'/>
             </Col>
         </Row>
