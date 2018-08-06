@@ -5,26 +5,12 @@ import {connect} from 'react-redux'
 import PutCallChart from './PutCallChart'
 import DensityChart from './DensityChart'
 import ImpliedVolatilityChart from './ImpliedVolatilityChart'
-import LoadData from './LoadData'
+import LoadData from '../utils/LoadData'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
-import WarningNoValues from './WarningNoValues'
-/** const parameters={
-        num_u:8,
-        rate,
-        maturity,
-        asset,
-        sigma, 
-        lambda:0,
-        mu_l:0,
-        sig_l:0,
-        speed,
-        v0:v0Hat,
-        eta_v,
-        rho,
-        strikes:[100],
-        quantile:0.01
-    } */
+import WarningNoValues from '../utils/WarningNoValues'
+import { isEmpty } from 'globals/utils'
+
 const getBaseUrl=match=>match.path.split(":")[0] //this also exists in app.js
 export const sensitivities=[
     {value:'price', label:'Price'},
@@ -41,19 +27,25 @@ const handleChange=(match, history, updateOptions, attributes)=>
     
 const SensitivityNav=({match, history, updateOptions, attributes})=>(
     <Tabs 
-    value={sensitivities
-        .findIndex(v=>v.value===match.params.sensitivity)
-    } 
-    onChange={handleChange(match, history, updateOptions, attributes)} 
-    fullWidth
+        value={sensitivities
+            .findIndex(v=>v.value===match.params.sensitivity)
+        } 
+        onChange={handleChange(match, history, updateOptions, attributes)} 
+        fullWidth
     >
-    {sensitivities.map(({value, label})=>{
-    return <Tab label={label} key={value}/>
-    })}
+        {sensitivities.map(({value, label})=><Tab label={label} key={value}/>)}
     </Tabs>
 )
-const checkRequiredFields=({maturity, asset, strikes, prices})=>strikes&&maturity&&asset&&prices
-const ChartsScreen=({onLoad, attributes, match, history, updateOptions})=>checkRequiredFields(attributes)?(
+//const checkRequiredFields=({maturity, asset, strikes, prices, rate, ...rest})=>strikes&&maturity&&asset&&prices&&rate&&!isEmpty(rest)
+const ChartsScreen=({onLoad, attributes, match, history, updateOptions, calibrated})=>isEmpty(calibrated)?(
+<Grid fluid>
+    <Row>
+        <Col xs={12}>
+        <WarningNoValues links={[{to:'/tab/1', label:'Market Prices'}, {to:'/tab/2', label:'Calibration'}]}/>
+        </Col>
+    </Row>
+</Grid>
+):(
     <LoadData 
         onLoad={onLoad} 
         attributes={attributes} 
@@ -83,17 +75,12 @@ const ChartsScreen=({onLoad, attributes, match, history, updateOptions})=>checkR
             
         </Grid>
     </LoadData>
-):(<Grid fluid>
-    <Row>
-        <Col xs={12}>
-        <WarningNoValues/>
-        </Col>
-    </Row>
-</Grid>)
+)
 const mapStateToProps=({calibratorValues})=>({
     attributes:{
         ...calibratorValues.attributes, ...calibratorValues.calibrated
-    }
+    },
+    calibrated:calibratorValues.calibrated
 })
 
 const onLoad=dispatch=>{

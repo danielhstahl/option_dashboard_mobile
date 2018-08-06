@@ -17,13 +17,13 @@ const getPricesAndIV=type=>dispatch=>({sensitivity, ...body})=>{
         type:LOADING,
         value:true
     })
+    dispatch({
+        type:mapTypeToAction[type],
+        value:[]
+    })
     return pFetch(`calculator/${type}/${sensitivity}`, body)
         .then(results=>{
             console.log(results)
-            dispatch({
-                type:LOADING,
-                value:false
-            })
             if(handleIV(results)){
                 dispatch({
                     type:IV,
@@ -33,6 +33,11 @@ const getPricesAndIV=type=>dispatch=>({sensitivity, ...body})=>{
             return dispatch({
                 type:mapTypeToAction[type],
                 value:results
+            })
+        }).finally(()=>{
+            dispatch({
+                type:LOADING,
+                value:false
             })
         })
 }
@@ -49,13 +54,15 @@ const gDensity=(type, densityType)=>dispatch=>body=>{
     return pFetch(`density/${densityType}`, body)
         .then(results=>{
             console.log(results)
-            dispatch({
-                type:LOADING,
-                value:false
-            })
+           
             return dispatch({
                 type,
                 value:results
+            })
+        }).then(()=>{
+            dispatch({
+                type:LOADING,
+                value:false
             })
         })
 }

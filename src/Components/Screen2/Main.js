@@ -2,8 +2,9 @@ import React from 'react'
 import { Grid, Row, Col } from 'react-flexbox-grid'
 import SplineCurves from './Graphs'
 import MarketValueTable from './MarketValueTable'
-import {ChartsTab, CalibrateButton} from './NextTabButton'
+import ButtonToCalibrate from './ButtonToCalibrate'
 import CalibratedValueTable from './CalibratedValueTable'
+import ButtonNext from './ButtonToScreen3'
 const CalibrationScreen=()=>(
     <Grid fluid>
        <Row>
@@ -21,7 +22,7 @@ const CalibrationScreen=()=>(
                 <p>
                     The model will calibrate the characteristic function to approximate the fitted spline above.  The fit will be better when the option prices have less arbitrage.
                 </p>
-                <CalibrateButton/> 
+                <ButtonToCalibrate/> 
             </Col>
         </Row>
         <Row>
@@ -31,7 +32,7 @@ const CalibrationScreen=()=>(
         </Row>
         <Row>
             <Col xs={12}>
-                <ChartsTab nextTabLink='/tab/3' />
+                <ButtonNext nextTabLink='/tab/3' />
             </Col>
         </Row>
     </Grid>

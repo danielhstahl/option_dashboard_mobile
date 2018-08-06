@@ -9,38 +9,70 @@ import {
     TICKERS,
     SPLINE,
     MARKET_VALUES,
-    ASSET_PRICE
+    ASSET_PRICE,
+    LOADING
 } from './constants'
 
-export const getOptionFeatures=dispatch=>ticker=>gFetch(`options/${ticker}/maturities`).then(features=>{
+export const getOptionFeatures=dispatch=>ticker=>{
     dispatch({
-        type:OPTION_MATURITIES,
-        maturities:features.expirationDates
+        type:LOADING,
+        value:true
     })
-    dispatch({
-        type:ASSET_PRICE,
-        asset:features.asset
-    })
-})
+    gFetch(`options/${ticker}/maturities`).then(features=>{
+        dispatch({
+            type:OPTION_MATURITIES,
+            maturities:features.expirationDates
+        })
+        dispatch({
+            type:ASSET_PRICE,
+            asset:features.asset
+        })
+    }).finally(()=>dispatch({
+        type:LOADING,
+        value:false
+    }))
+}
 
-export const getTickers=dispatch=>gFetch('options/tickers').then(tickers=>{
+export const getTickers=dispatch=>{
     dispatch({
-        type:TICKERS,
-        tickers
+        type:LOADING,
+        value:true
     })
-})
+    gFetch('options/tickers').then(tickers=>{
+        dispatch({
+            type:TICKERS,
+            tickers
+        })
+    }).finally(()=>{
+        dispatch({
+            type:LOADING,
+            value:false
+        })
+    })
+}
 
-export const getSpline=dispatch=>(ticker, maturity)=>gFetch(`options/${ticker}/prices/${maturity}?minRelativeBidAskSpread=.1&minOpenInterest=25`).then(({curve, points, ...attributes})=>{
-    console.log(curve)
-    console.log(points)
-    console.log(attributes)
+export const getSpline=dispatch=>(ticker, maturity)=>{
     dispatch({
-        type:SPLINE,
-        spline:{curve, points}
+        type:LOADING,
+        value:true
     })
-    dispatch({
-        type:MARKET_VALUES,
-        attributes
+    gFetch(`options/${ticker}/prices/${maturity}?minRelativeBidAskSpread=.1&minOpenInterest=25`).then(({curve, points, ...attributes})=>{
+        console.log(curve)
+        console.log(points)
+        console.log(attributes)
+        dispatch({
+            type:SPLINE,
+            spline:{curve, points}
+        })
+        dispatch({
+            type:MARKET_VALUES,
+            attributes
+        })
+    }).finally(()=>{
+        dispatch({
+            type:LOADING,
+            value:false
+        })
     })
-})
+}
 

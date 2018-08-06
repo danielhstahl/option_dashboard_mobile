@@ -7,7 +7,7 @@ import FormControl from '@material-ui/core/FormControl'
 import {inputFieldTheme} from 'Themes/inputFields'
 import {withStyles} from '@material-ui/core/styles'
 import InputLabel from '@material-ui/core/InputLabel'
-import LoadData from './LoadData'
+import LoadData from '../utils/LoadData'
 import {getCalibrationBounds} from 'Actions/calibrator'
 const InputTicker=withStyles(inputFieldTheme)(({
     onChange, value, 

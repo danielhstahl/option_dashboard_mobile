@@ -1,8 +1,8 @@
 import React from 'react'
-import { LineChart, Line, ResponsiveContainer, XAxis, Legend} from 'recharts'
+import { LineChart, Line, ResponsiveContainer, XAxis, Legend, Label} from 'recharts'
 
 import {connect} from 'react-redux'
-
+import ProgressBar from 'Components/utils/ProgressBar'
 const title='Spline of Option Prices'
 const xLabel='Normalized Log Strike'
 const yLabel='Transformed Option Price'
@@ -22,13 +22,15 @@ const PutCallChart=({call, put})=>{
                     <Legend verticalAlign="top" height={36}/>
                     <Line dataKey='call' type="monotone"/>
                     <Line dataKey='put' type="monotone"/>
-                    <XAxis dataKey='at_point'/>
+                    <XAxis dataKey='at_point'>
+                        <Label value="Strikes" offset={10} position="insideBottom" />
+                    </XAxis>
                 </LineChart>
             </ResponsiveContainer>
         )
     }
     else{
-        return null
+        return <ProgressBar/>
     }
 }
 

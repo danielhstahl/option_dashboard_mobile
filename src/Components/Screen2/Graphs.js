@@ -1,5 +1,5 @@
 import React from 'react'
-import { LineChart, Line, ResponsiveContainer, XAxis} from 'recharts'
+import { LineChart, Line, ResponsiveContainer, XAxis, Label} from 'recharts'
 
 import {connect} from 'react-redux'
 
@@ -15,7 +15,9 @@ const SplineCurves=({spline})=>{
     >
         <LineChart data={spline.curve}>
             <Line dataKey='transformed_option' type="monotone"/>
-            <XAxis dataKey='log_strike'/>
+            <XAxis dataKey='log_strike'>
+                <Label value="Log Strike" offset={0} position="insideBottom" />
+            </XAxis>
         </LineChart>
     </ResponsiveContainer>
     :null

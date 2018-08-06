@@ -1,11 +1,8 @@
 import React from 'react'
-import { LineChart, Line, ResponsiveContainer, XAxis} from 'recharts'
-
+import { LineChart, Line, ResponsiveContainer, XAxis, Label} from 'recharts'
+import ProgressBar from 'Components/utils/ProgressBar'
 import {connect} from 'react-redux'
 
-const title='Spline of Option Prices'
-const xLabel='Normalized Log Strike'
-const yLabel='Transformed Option Price'
 const DensityChart=({density})=>{
     return (
     density.length>0?<ResponsiveContainer 
@@ -14,10 +11,12 @@ const DensityChart=({density})=>{
     >
         <LineChart data={density}>
             <Line dataKey='value' type="monotone"/>
-            <XAxis dataKey='at_point'/>
+            <XAxis dataKey='at_point'>
+                <Label value="Strikes" offset={0} position="insideBottom" />
+            </XAxis>
         </LineChart>
     </ResponsiveContainer>
-    :null
+    :<ProgressBar/>
 )
 }
 

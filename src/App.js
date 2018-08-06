@@ -2,12 +2,11 @@ import React from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
-import {sensitivities} from 'Components/ChartsScreen'
 import {Route, Redirect, Switch} from 'react-router-dom'
-import SetupScreen from 'Components/SetupScreen'
-import IntroScreen from 'Components/IntroScreen'
-import ChartsScreen from 'Components/ChartsScreen'
-import CalibrationScreen from 'Components/CalibrationScreen'
+import Screen1 from 'Components/Screen1/Main'
+import Screen2 from 'Components/Screen2/Main'
+import Screen3, {sensitivities} from 'Components/Screen3/Main'
+
 const getBaseUrl=match=>match.path.split(":")[0]
 const handleChange=(match, history)=>(_, value)=>history.push(getBaseUrl(match)+(value+1))
 const AppBarInst=({match, history})=>(
@@ -42,18 +41,18 @@ const App=()=>[
     key='marketoptions'
     path='/tab/1'
     exact
-    component={SetupScreen}
+    component={Screen1}
   />,
   <Route 
     key='calibration'
     path='/tab/2' 
-    component={CalibrationScreen} 
+    component={Screen2} 
     exact
   />,
   <Route 
     key='charts'
     path='/tab/3/:sensitivity' 
-    component={ChartsScreen} 
+    component={Screen3} 
     exact
   />
 ]

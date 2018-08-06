@@ -1,11 +1,8 @@
 import React from 'react'
-import { LineChart, Line, ResponsiveContainer, XAxis} from 'recharts'
-
+import { LineChart, Line, ResponsiveContainer, XAxis, Label} from 'recharts'
+import ProgressBar from 'Components/utils/ProgressBar'
 import {connect} from 'react-redux'
 
-const title='Spline of Option Prices'
-const xLabel='Normalized Log Strike'
-const yLabel='Transformed Option Price'
 const ImpliedVolatilityChart=({impliedVolatility})=>{
     return (
     impliedVolatility.length>0?<ResponsiveContainer 
@@ -14,10 +11,12 @@ const ImpliedVolatilityChart=({impliedVolatility})=>{
     >
         <LineChart data={impliedVolatility}>
             <Line dataKey='iv' type="monotone"/>
-            <XAxis dataKey='at_point'/>
+            <XAxis dataKey='at_point'>
+                <Label value="Strikes" offset={10} position="insideBottom" />
+            </XAxis>
         </LineChart>
     </ResponsiveContainer>
-    :null
+    :<ProgressBar/>
 )
 }
 
