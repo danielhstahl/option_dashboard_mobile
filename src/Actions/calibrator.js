@@ -16,16 +16,17 @@ const gCalibrate=calibration=>dispatch=>body=>{
     return pFetch(`calibrator/${calibration}`, body)
         .then(parameters=>{
             console.log(parameters)
-            dispatch({
-                type:LOADING,
-                value:false
-            })
             return dispatch({
                 type:CALIBRATED_PARAMETERS,
                 parameters:{
                     ...parameters.optimal_parameters,
                     mse:parameters.fn_result
                 }
+            })
+        }).finally(()=>{
+            dispatch({
+                type:LOADING,
+                value:false
             })
         })
 } 
