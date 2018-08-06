@@ -106,7 +106,7 @@ app.post('/calculator/:optionType/:sensitivityType', (req, res)=>{
 })
 app.post('/density/:densityType', (req, res)=>{
     setTimeout(()=>{
-        res.send(handlers.calculator(req))
+        res.send(handlers.density(req))
     }, 1000)
 })
 

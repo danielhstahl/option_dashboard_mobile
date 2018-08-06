@@ -34,7 +34,6 @@ const App=()=>[
   <Route 
     key='bannerroute'
     path='/tab/:tabId'
-    key='home'
     render={props=><AppBarInst key='appbar' {...props}/>}
   />,
   <Route 

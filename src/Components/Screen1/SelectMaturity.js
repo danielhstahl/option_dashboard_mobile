@@ -7,7 +7,7 @@ import {inputFieldTheme} from 'Themes/inputFields'
 import {withStyles} from '@material-ui/core/styles'
 import InputLabel from '@material-ui/core/InputLabel'
 import {getSpline} from 'Actions/options'
-import ProgressBar from 'Components/utils/ProgressBar'
+
 const SelectMaturity=withStyles(inputFieldTheme)(({
     value, options, ticker,
     onChange, classes

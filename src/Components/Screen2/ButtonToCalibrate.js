@@ -1,11 +1,10 @@
 import React from 'react'
 import Button from '@material-ui/core/Button'
-import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {withStyles} from '@material-ui/core/styles'
 import ProgressBar from '../utils/ProgressBar'
 import {calibrateModel} from 'Actions/calibrator'
-import {isEmpty} from 'globals/utils'
+
 const styles={
     buttonProgress:{
         top: '50%',
