@@ -1,9 +1,9 @@
 import React from 'react'
 import { 
-    LineChart, Line, 
-    ResponsiveContainer, 
-    XAxis, Label
-} from 'recharts'
+    VictoryChart, VictoryGroup,
+    VictoryLine, VictoryContainer,
+    VictoryTheme, VictoryScatter
+} from 'victory'
 import { withTheme } from '@material-ui/core/styles'
 import {connect} from 'react-redux'
 import {
@@ -12,37 +12,25 @@ import {
     CHART_MARGIN
 } from 'globals/constants'
 const SplineCurves=withTheme()(({spline, theme})=>(
-    spline.curve?<ResponsiveContainer 
-        minWidth={200}
-        minHeight={200}
-    >
-        <LineChart margin={CHART_MARGIN}>
-            <Line 
-                dot={false} 
-                dataKey='transformed_option' 
-                data={spline.curve} 
-                type="monotone" 
-                stroke={theme.palette.primary.main} 
-                strokeWidth={2}
-                animationDuration={ANIMATION_DURATION}
+    spline.curve?
+        <VictoryChart /*theme={VictoryTheme.material}*/ containerComponent={<VictoryContainer/>}>
+            <VictoryLine 
+               animate={true}
+               style={{data:{stroke:theme.palette.primary.main}}}
+               data={spline.curve}
+               x='log_strike'
+               interpolation="natural"
+               y='transformed_option'
             />
-            <Line 
-                dataKey='transformed_option'
-                data={spline.points} 
-                fill={theme.palette.secondary.main}
-                stroke="transparent"
-                animationDuration={ANIMATION_DURATION}
+            <VictoryScatter 
+               animate={true}
+               style={{data:{stroke:theme.palette.secondary.main}}}
+               data={spline.points}
+               x='log_strike'
+               interpolation="natural"
+               y='transformed_option'
             />
-            <XAxis dataKey='log_strike' allowDuplicatedCategory={false}>
-                <Label 
-                    value="Log Strike" 
-                    offset={CHART_LABEL_OFFSET}  
-                    position="bottom" 
-                />
-            </XAxis>
-        </LineChart>
-    </ResponsiveContainer>
-    :null
+        </VictoryChart>:null
 ))
 
 const mapStateToProps=({calibratorValues})=>({
