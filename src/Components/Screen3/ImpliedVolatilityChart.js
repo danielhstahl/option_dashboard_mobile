@@ -3,11 +3,18 @@ import { LineChart, Line, ResponsiveContainer, XAxis, Label, YAxis} from 'rechar
 import ProgressBar from 'Components/utils/ProgressBar'
 import {connect} from 'react-redux'
 import { withTheme } from '@material-ui/core/styles'
+import {progressStyleGenerator} from 'globals/utils'
 import {
     ANIMATION_DURATION,
     CHART_LABEL_OFFSET,
-    CHART_MARGIN
+    CHART_MARGIN,
+    Y_AXIS_WIDTH,
+    CHART_MIN_HEIGHT
 } from 'globals/constants'
+
+const PROGRESS_SIZE=36
+const divStyle={position:'relative', minHeight:CHART_MIN_HEIGHT}
+const progressStyle=progressStyleGenerator(PROGRESS_SIZE)
 
 const ImpliedVolatilityChart=withTheme()(({impliedVolatility, theme})=>(
     impliedVolatility.length>0?
@@ -33,11 +40,16 @@ const ImpliedVolatilityChart=withTheme()(({impliedVolatility, theme})=>(
                         position="bottom" 
                     />
                 </XAxis>
-                <YAxis width={30}/>
+                <YAxis width={Y_AXIS_WIDTH}/>
             </LineChart>
         </ResponsiveContainer>
     </div>
-    :<ProgressBar/>
+    :<div style={divStyle}>
+        <ProgressBar 
+            style={progressStyle} 
+            size={PROGRESS_SIZE}
+        />
+    </div>
     
 ))
 

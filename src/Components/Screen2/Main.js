@@ -1,12 +1,13 @@
 import React from 'react'
 import { Grid, Row, Col } from 'react-flexbox-grid'
-import SplineCurves from './Graphs'
+import SplineChart from './SplineChart'
 import MarketValueTable from './MarketValueTable'
 import ButtonToCalibrate from './ButtonToCalibrate'
 import CalibratedValueTable from './CalibratedValueTable'
 import ButtonNext from './ButtonToScreen3'
+const marginBottom={marginBottom:50}
 const CalibrationScreen=()=>(
-    <Grid fluid>
+    <Grid fluid style={marginBottom}>
        <Row>
             <Col  xs={12} >
                 <MarketValueTable />
@@ -14,7 +15,7 @@ const CalibrationScreen=()=>(
         </Row>
         <Row>
             <Col xs={12} >
-                <SplineCurves />
+                <SplineChart />
             </Col>
         </Row>
         <Row>

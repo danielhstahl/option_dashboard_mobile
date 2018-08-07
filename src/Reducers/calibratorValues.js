@@ -6,12 +6,23 @@ import {
 } from 'Actions/constants'
 
 import { combineReducers } from 'redux'
+import {getAboveEpsilon} from 'globals/utils'
 
+const getOnlySplineAboveSmall=getAboveEpsilon(.00001)
 
 const spline=(state={}, action)=>{
     switch(action.type){
         case SPLINE:
-            return action.spline
+            return {
+                curve:getOnlySplineAboveSmall(
+                    action.spline.curve, 
+                    'transformed_option'
+                ),
+                points:getOnlySplineAboveSmall(
+                    action.spline.points, 
+                    'transformed_option'
+                )
+            }
         default:
             return state
     }

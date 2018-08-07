@@ -6,3 +6,13 @@ export const isEmpty=obj=>{
     }
     return true
 }
+
+export const getAboveEpsilon=epsilon=>(arr, key)=>arr.filter(v=>v[key]>epsilon)
+
+export const progressStyleGenerator=progressSize=>({
+    marginTop:-progressSize/2,
+    marginLeft:-progressSize/2,
+    top:'50%',
+    left:'50%',
+    position:'absolute'
+})

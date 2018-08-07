@@ -8,11 +8,18 @@ import {
 import ProgressBar from 'Components/utils/ProgressBar'
 import {connect} from 'react-redux'
 import { withTheme } from '@material-ui/core/styles'
+import {progressStyleGenerator} from 'globals/utils'
 import {
     ANIMATION_DURATION,
     CHART_LABEL_OFFSET,
-    CHART_MARGIN
+    CHART_MARGIN,
+    Y_AXIS_WIDTH,
+    CHART_MIN_HEIGHT
 } from 'globals/constants'
+
+const PROGRESS_SIZE=36
+const divStyle={position:'relative', minHeight:CHART_MIN_HEIGHT}
+const progressStyle=progressStyleGenerator(PROGRESS_SIZE)
 
 const DensityChart=withTheme()(({density, theme, riskMetrics})=>(
     density.length>0?
@@ -20,7 +27,7 @@ const DensityChart=withTheme()(({density, theme, riskMetrics})=>(
         <p>Risk Neutral Density and Value at Risk</p>
         <ResponsiveContainer 
             minWidth={200}
-            minHeight={200}
+            minHeight={CHART_MIN_HEIGHT}
         >
             <LineChart data={density} margin={CHART_MARGIN}>
                 <Line 
@@ -42,11 +49,16 @@ const DensityChart=withTheme()(({density, theme, riskMetrics})=>(
                         position="bottom" 
                     />
                 </XAxis>
-                <YAxis width={30}/>
+                <YAxis width={Y_AXIS_WIDTH}/>
             </LineChart>
         </ResponsiveContainer>
     </div>
-    :<ProgressBar/>
+    :<div style={divStyle}>
+        <ProgressBar 
+            style={progressStyle} 
+            size={PROGRESS_SIZE}
+        />
+    </div>
 ))
 
 const mapStateToProps=({pricerValues})=>({

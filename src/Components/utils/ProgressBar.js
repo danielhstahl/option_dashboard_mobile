@@ -6,8 +6,9 @@ const mapStateToProps=({inputs})=>({
     loading:inputs.loading
 })
 
-const CustomProgress=({loading})=>loading&&<CircularProgress 
+const CustomProgress=({loading, dispatch, ...rest})=>loading&&<CircularProgress 
     color="secondary"
+    {...rest}
 />
 
 export default connect(mapStateToProps)(CustomProgress)

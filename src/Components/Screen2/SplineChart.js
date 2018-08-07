@@ -34,7 +34,11 @@ const SplineCurves=withTheme()(({spline, theme})=>(
                 animationDuration={ANIMATION_DURATION}
             />
             <XAxis dataKey='log_strike' allowDuplicatedCategory={false}>
-                <Label value="Log Strike" offset={CHART_LABEL_OFFSET}  position="bottom" />
+                <Label 
+                    value="Log Strike" 
+                    offset={CHART_LABEL_OFFSET}  
+                    position="bottom" 
+                />
             </XAxis>
         </LineChart>
     </ResponsiveContainer>
