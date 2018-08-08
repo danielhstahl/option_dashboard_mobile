@@ -9,6 +9,14 @@ export const isEmpty=obj=>{
 
 export const getAboveEpsilon=epsilon=>(arr, key)=>arr.filter(v=>v[key]>epsilon)
 
+export const getSymmetricFromRight=(xKey, yKey, arr, epsilon)=>{
+    const eps=getAboveEpsilon(epsilon)
+    const condArr=eps(arr, yKey)
+    const lastXVal=condArr[condArr.length-1][xKey]
+    return arr.filter(v=>v[xKey]>-lastXVal&&(v[yKey]>epsilon||v[xKey]<0))
+}
+
+
 export const progressStyleGenerator=progressSize=>({
     marginTop:-progressSize/2,
     marginLeft:-progressSize/2,

@@ -7,15 +7,13 @@ import {
 import { withTheme } from '@material-ui/core/styles'
 import {connect} from 'react-redux'
 import {
-    ANIMATION_DURATION,
-    CHART_LABEL_OFFSET,
-    CHART_MARGIN
+    ANIMATION_DURATION
 } from 'globals/constants'
+const animateObj={duration:ANIMATION_DURATION}
 const SplineCurves=withTheme()(({spline, theme})=>(
     spline.curve?
-        <VictoryChart /*theme={VictoryTheme.material}*/ containerComponent={<VictoryContainer/>}>
+        <VictoryChart animate={animateObj} containerComponent={<VictoryContainer/>}>
             <VictoryLine 
-               animate={true}
                style={{data:{stroke:theme.palette.primary.main}}}
                data={spline.curve}
                x='log_strike'
@@ -23,7 +21,6 @@ const SplineCurves=withTheme()(({spline, theme})=>(
                y='transformed_option'
             />
             <VictoryScatter 
-               animate={true}
                style={{data:{stroke:theme.palette.secondary.main}}}
                data={spline.points}
                x='log_strike'

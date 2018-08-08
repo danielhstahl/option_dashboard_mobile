@@ -1,8 +1,7 @@
 import React from 'react'
 import { 
     VictoryChart, VictoryLine, 
-    VictoryContainer,
-    VictoryScatter
+    VictoryContainer
 } from 'victory'
 import ProgressBar from 'Components/utils/ProgressBar'
 import {connect} from 'react-redux'
@@ -10,12 +9,9 @@ import { withTheme } from '@material-ui/core/styles'
 import {progressStyleGenerator} from 'globals/utils'
 import {
     ANIMATION_DURATION,
-    CHART_LABEL_OFFSET,
-    CHART_MARGIN,
-    Y_AXIS_WIDTH,
     CHART_MIN_HEIGHT
 } from 'globals/constants'
-
+const animateObj={duration:ANIMATION_DURATION}
 const PROGRESS_SIZE=36
 const divStyle={position:'relative', minHeight:CHART_MIN_HEIGHT}
 const progressStyle=progressStyleGenerator(PROGRESS_SIZE)
@@ -32,15 +28,20 @@ const getVaR=(riskMetrics, density)=>[
         y:getMax(density, 'value')
     }
 ]
-const DensityChart=withTheme()(({density, theme, riskMetrics})=>(
+const DensityChart=withTheme()(({density, theme, riskMetrics})=>{
+    console.log(density)
+    console.log(riskMetrics)
+    console.log(getMax(density, 'value'))
+    return (
     density.length>0?
     <div>
         <p>Risk Neutral Density and Value at Risk</p>
             <VictoryChart 
+                animate={animateObj}
                 containerComponent={<VictoryContainer/>}
             >
                 <VictoryLine 
-                    animate={true}
+                    
                     style={{data:{stroke:theme.palette.primary.main}}}
                     data={density}
                     x='at_point'
@@ -48,7 +49,6 @@ const DensityChart=withTheme()(({density, theme, riskMetrics})=>(
                     y='value'
                 />
                 <VictoryLine 
-                    animate={true}
                     style={{data:{stroke:theme.palette.primary.main}}}
                     data={getVaR(riskMetrics, density)}
                 />
@@ -60,7 +60,7 @@ const DensityChart=withTheme()(({density, theme, riskMetrics})=>(
             size={PROGRESS_SIZE}
         />
     </div>
-))
+)})
 
 const mapStateToProps=({pricerValues})=>({
     density:pricerValues.density,
