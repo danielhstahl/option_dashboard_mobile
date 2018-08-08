@@ -13,6 +13,8 @@ const maturity=(state='', action)=>{
     switch(action.type){
         case MATURITY_VALUE:
             return action.maturity
+        case TICKER_VALUE:
+            return ''//reset
         default:
             return state
     }

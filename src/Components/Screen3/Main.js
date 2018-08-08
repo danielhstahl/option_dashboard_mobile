@@ -36,7 +36,7 @@ const SensitivityNav=({match, history, updateOptions, attributes})=>(
         {sensitivities.map(({value, label})=><Tab label={label} key={value}/>)}
     </Tabs>
 )
-//const checkRequiredFields=({maturity, asset, strikes, prices, rate, ...rest})=>strikes&&maturity&&asset&&prices&&rate&&!isEmpty(rest)
+
 const ChartsScreen=({onLoad, attributes, match, history, updateOptions, calibrated})=>isEmpty(calibrated)?(
 <Grid fluid>
     <Row>
@@ -54,7 +54,7 @@ const ChartsScreen=({onLoad, attributes, match, history, updateOptions, calibrat
         <Grid fluid>
             <Row>
                 <Col xs={12}>
-                    <PutCallChart />
+                    <PutCallChart sensitivity={match.params.sensitivity}/>
                 </Col>
             </Row>
             <Row>

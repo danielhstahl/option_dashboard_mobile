@@ -2,23 +2,27 @@ import {
     SPLINE,
     MARKET_VALUES,
     CONSTRAINTS,
-    CALIBRATED_PARAMETERS
+    CALIBRATED_PARAMETERS,
+    TICKER_VALUE
 } from 'Actions/constants'
 
 import { combineReducers } from 'redux'
-import {getAboveEpsilon} from 'globals/utils'
+import {getAboveEpsilon, getSymmetricFromRight} from 'globals/utils'
+const epsilon=.00001
 
-const getOnlySplineAboveSmall=getAboveEpsilon(.00001)
+const getOnlyAboveZero=getAboveEpsilon(0)
 
 const spline=(state={}, action)=>{
     switch(action.type){
         case SPLINE:
             return {
-                curve:getOnlySplineAboveSmall(
+                curve:getSymmetricFromRight(
+                    'log_strike',
+                    'transformed_option',
                     action.spline.curve, 
-                    'transformed_option'
+                    epsilon
                 ),
-                points:getOnlySplineAboveSmall(
+                points:getOnlyAboveZero(
                     action.spline.points, 
                     'transformed_option'
                 )
@@ -57,6 +61,9 @@ const attributes=(state=defaultAttributes, action)=>{
                         [curr]:action.constraints[curr]
                     }), {})
             }
+        case TICKER_VALUE: //reset
+            const {constraints}=state
+            return {...defaultAttributes, constraints}
         default:
             return state
     }
