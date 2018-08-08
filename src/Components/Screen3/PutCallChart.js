@@ -1,5 +1,9 @@
 import React from 'react'
-import { LineChart, Line, ResponsiveContainer, XAxis, Legend, Label, YAxis} from 'recharts'
+import { 
+    VictoryChart, VictoryLine, 
+    VictoryContainer,
+    VictoryScatter
+} from 'victory'
 import { withTheme } from '@material-ui/core/styles'
 import {connect} from 'react-redux'
 import ProgressBar from 'Components/utils/ProgressBar'
@@ -16,47 +20,42 @@ const PROGRESS_SIZE=36
 const divStyle={position:'relative', minHeight:CHART_MIN_HEIGHT}
 const progressStyle=progressStyleGenerator(PROGRESS_SIZE)
 
-const PutCallChart=withTheme()(({call, put, theme})=>(
+const PutCallChart=withTheme()(({call, put, theme, strikes, prices})=>{
+    const scatter=strikes.map((v, index)=>({
+        strike:v,
+        price:prices[index]
+    }))
+    return (
     <div>
         <p>Call and Put Charts</p>
         {call.length>0&&put.length>0?
         (
-            <ResponsiveContainer 
-                minWidth={200}
-                minHeight={200}
-            >
-                <LineChart margin={CHART_MARGIN}>
-                    <Legend verticalAlign="top"/>
-                    <Line 
-                        dot={false} 
-                        name="Call"
-                        data={call}
-                        dataKey='value' 
-                        type="monotone" 
-                        animationDuration={ANIMATION_DURATION}
-                        stroke={theme.palette.primary.main}
-                        strokeWidth={2}
-                    />
-                    <Line 
-                        dot={false} 
-                        name="Put"
-                        data={put}
-                        dataKey='value' 
-                        type="monotone" 
-                        animationDuration={ANIMATION_DURATION}
-                        stroke={theme.palette.secondary.main} 
-                        strokeWidth={2}
-                    />
-                    <XAxis dataKey='at_point' allowDuplicatedCategory={false}>
-                        <Label 
-                            value="Strikes"  
-                            offset={CHART_LABEL_OFFSET} 
-                            position="bottom" 
-                        />
-                    </XAxis>
-                    <YAxis width={Y_AXIS_WIDTH}/>
-                </LineChart>
-            </ResponsiveContainer>
+           <VictoryChart containerComponent={<VictoryContainer/>}>
+                <VictoryLine 
+                    animate={true}
+                    style={{data:{stroke:theme.palette.primary.main}}}
+                    data={call}
+                    x='at_point'
+                    interpolation="natural"
+                    y='value'
+                />
+                <VictoryLine 
+                    animate={true}
+                    style={{data:{stroke:theme.palette.secondary.main}}}
+                    data={put}
+                    x='at_point'
+                    interpolation="natural"
+                    y='value'
+                />
+                <VictoryScatter
+                    animate={true}
+                    style={{data:{stroke:theme.palette.secondary.main}}}
+                    data={scatter}
+                    x='strike'
+                    interpolation="natural"
+                    y='price'
+                />
+            </VictoryChart>
         ):(
             <div style={divStyle}>
                 <ProgressBar 
@@ -66,11 +65,13 @@ const PutCallChart=withTheme()(({call, put, theme})=>(
             </div>
         )}
     </div>
-))
+)})
 
-const mapStateToProps=({pricerValues})=>({
+const mapStateToProps=({pricerValues, calibratorValues})=>({
     call:pricerValues.call,
-    put:pricerValues.put
+    put:pricerValues.put,
+    strikes:calibratorValues.attributes.strikes,
+    prices:calibratorValues.attributes.prices
 })
 
 export default connect(

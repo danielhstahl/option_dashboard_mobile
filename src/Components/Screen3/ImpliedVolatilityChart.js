@@ -1,5 +1,9 @@
 import React from 'react'
-import { LineChart, Line, ResponsiveContainer, XAxis, Label, YAxis} from 'recharts'
+import { 
+    VictoryChart, VictoryLine, 
+    VictoryContainer,
+    VictoryScatter
+} from 'victory'
 import ProgressBar from 'Components/utils/ProgressBar'
 import {connect} from 'react-redux'
 import { withTheme } from '@material-ui/core/styles'
@@ -20,29 +24,16 @@ const ImpliedVolatilityChart=withTheme()(({impliedVolatility, theme})=>(
     impliedVolatility.length>0?
     <div>
         <p>Implied Volatility</p>
-        <ResponsiveContainer 
-            minWidth={200}
-            minHeight={200}
-        >
-            <LineChart data={impliedVolatility} margin={CHART_MARGIN}>
-                <Line 
-                    dot={false} 
-                    dataKey='iv' 
-                    type="monotone" 
-                    stroke={theme.palette.primary.main} 
-                    strokeWidth={2}
-                    animationDuration={ANIMATION_DURATION}
-                />
-                <XAxis dataKey='at_point'>
-                    <Label 
-                        value="Strikes" 
-                        offset={CHART_LABEL_OFFSET} 
-                        position="bottom" 
-                    />
-                </XAxis>
-                <YAxis width={Y_AXIS_WIDTH}/>
-            </LineChart>
-        </ResponsiveContainer>
+        <VictoryChart containerComponent={<VictoryContainer/>}>
+            <VictoryLine 
+                animate={true}
+                style={{data:{stroke:theme.palette.primary.main}}}
+                data={impliedVolatility}
+                x='at_point'
+                interpolation="natural"
+                y='value'
+            />
+        </VictoryChart>
     </div>
     :<div style={divStyle}>
         <ProgressBar 

@@ -1,8 +1,8 @@
 import React from 'react'
 import { 
-    VictoryChart, VictoryGroup,
-    VictoryLine, VictoryContainer,
-    VictoryTheme, VictoryScatter
+    VictoryChart, VictoryLine, 
+    VictoryContainer,
+    VictoryScatter
 } from 'victory'
 import { withTheme } from '@material-ui/core/styles'
 import {connect} from 'react-redux'
