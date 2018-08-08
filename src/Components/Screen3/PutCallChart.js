@@ -8,7 +8,7 @@ import { withTheme } from '@material-ui/core/styles'
 import {connect} from 'react-redux'
 import ProgressBar from 'Components/utils/ProgressBar'
 import {progressStyleGenerator} from 'globals/utils'
-import {containerStyle, animateStyle} from 'globals/chartStyles'
+import {containerStyle, animateStyle, titleStyle} from 'globals/chartStyles'
 import {
     CHART_MIN_HEIGHT
 } from 'globals/constants'
@@ -28,19 +28,23 @@ const PutCallChart=withTheme()(({call, put, theme, strikes, prices, sensitivity}
     ]
     const {main:primary}=theme.palette.primary
     const {main:secondary}=theme.palette.secondary
-    return (
-    <div>
-        <p>Call and Put Charts</p>
-        {call.length>0&&put.length>0?
+    return (call.length>0&&put.length>0?
         (
            <VictoryChart containerComponent={<VictoryContainer style={containerStyle}/>} animate={animateStyle}>
-                <VictoryLegend titleOrientation="left" data={legendData(primary, secondary)} />
+                <VictoryLegend 
+                    centerTitle
+                    title="Calls and Puts"
+                    {...titleStyle}
+                    data={legendData(primary, secondary)} 
+                    orientation="horizontal"
+                />
                 <VictoryLine 
                     style={{data:{stroke:primary}}}
                     data={call}
                     x='at_point'
                     interpolation="natural"
                     y='value'
+                    
                 />
                 <VictoryLine 
                     style={{data:{stroke:secondary}}}
@@ -64,8 +68,7 @@ const PutCallChart=withTheme()(({call, put, theme, strikes, prices, sensitivity}
                     size={PROGRESS_SIZE}
                 />
             </div>
-        )}
-    </div>
+        )
 )})
 
 const mapStateToProps=({pricerValues, calibratorValues})=>({
