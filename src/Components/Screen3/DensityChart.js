@@ -7,11 +7,11 @@ import ProgressBar from 'Components/utils/ProgressBar'
 import {connect} from 'react-redux'
 import { withTheme } from '@material-ui/core/styles'
 import {progressStyleGenerator} from 'globals/utils'
+import {containerStyle, animateStyle} from 'globals/chartStyles'
 import {
-    ANIMATION_DURATION,
-    CHART_MIN_HEIGHT
+    CHART_MIN_HEIGHT,
+    FIXED_DECIMALS
 } from 'globals/constants'
-const animateObj={duration:ANIMATION_DURATION}
 const PROGRESS_SIZE=36
 const divStyle={position:'relative', minHeight:CHART_MIN_HEIGHT}
 const progressStyle=progressStyleGenerator(PROGRESS_SIZE)
@@ -28,31 +28,28 @@ const getVaR=(riskMetrics, density)=>[
         y:getMax(density, 'value')
     }
 ]
-const DensityChart=withTheme()(({density, theme, riskMetrics})=>{
-    console.log(density)
-    console.log(riskMetrics)
-    console.log(getMax(density, 'value'))
-    return (
-    density.length>0?
+const DensityChart=withTheme()(({density, theme, riskMetrics})=>(
+    density.length>0&&riskMetrics.value_at_risk?
     <div>
         <p>Risk Neutral Density and Value at Risk</p>
-            <VictoryChart 
-                animate={animateObj}
-                containerComponent={<VictoryContainer/>}
-            >
-                <VictoryLine 
-                    
-                    style={{data:{stroke:theme.palette.primary.main}}}
-                    data={density}
-                    x='at_point'
-                    interpolation="natural"
-                    y='value'
-                />
-                <VictoryLine 
-                    style={{data:{stroke:theme.palette.primary.main}}}
-                    data={getVaR(riskMetrics, density)}
-                />
-            </VictoryChart>
+        <p>Value at Risk: {riskMetrics.value_at_risk.toFixed(FIXED_DECIMALS)}, Expected Shortfall: {riskMetrics.expected_shortfall.toFixed(FIXED_DECIMALS)}</p>
+        <VictoryChart 
+            animate={animateStyle}
+            containerComponent={<VictoryContainer style={containerStyle}/>}
+        >
+            <VictoryLine 
+                
+                style={{data:{stroke:theme.palette.primary.main}}}
+                data={density}
+                x='at_point'
+                interpolation="natural"
+                y='value'
+            />
+            <VictoryLine 
+                style={{data:{stroke:theme.palette.secondary.main}}}
+                data={getVaR(riskMetrics, density)}
+            />
+        </VictoryChart>
     </div>
     :<div style={divStyle}>
         <ProgressBar 
@@ -60,7 +57,7 @@ const DensityChart=withTheme()(({density, theme, riskMetrics})=>{
             size={PROGRESS_SIZE}
         />
     </div>
-)})
+))
 
 const mapStateToProps=({pricerValues})=>({
     density:pricerValues.density,

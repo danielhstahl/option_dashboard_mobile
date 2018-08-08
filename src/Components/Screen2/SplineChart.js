@@ -6,13 +6,14 @@ import {
 } from 'victory'
 import { withTheme } from '@material-ui/core/styles'
 import {connect} from 'react-redux'
-import {
-    ANIMATION_DURATION
-} from 'globals/constants'
-const animateObj={duration:ANIMATION_DURATION}
+import {containerStyle, animateStyle} from 'globals/chartStyles'
+
 const SplineCurves=withTheme()(({spline, theme})=>(
     spline.curve?
-        <VictoryChart animate={animateObj} containerComponent={<VictoryContainer/>}>
+        <VictoryChart 
+            animate={animateStyle} 
+            containerComponent={<VictoryContainer style={containerStyle}/>}
+        >
             <VictoryLine 
                style={{data:{stroke:theme.palette.primary.main}}}
                data={spline.curve}
