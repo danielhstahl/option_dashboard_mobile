@@ -2,7 +2,7 @@ import React from 'react'
 import { 
     VictoryChart, VictoryLine, 
     VictoryContainer,
-    VictoryScatter
+    VictoryScatter, VictoryLegend
 } from 'victory'
 import { withTheme } from '@material-ui/core/styles'
 import {connect} from 'react-redux'
@@ -16,26 +16,34 @@ import {
 const PROGRESS_SIZE=36
 const divStyle={position:'relative', minHeight:CHART_MIN_HEIGHT}
 const progressStyle=progressStyleGenerator(PROGRESS_SIZE)
+
 const PutCallChart=withTheme()(({call, put, theme, strikes, prices, sensitivity})=>{
     const scatter=strikes.map((v, index)=>({
         strike:v,
         price:prices[index]
     }))
+    const legendData=(primary, secondary)=>[
+        {name:"Call", symbol: { fill: primary }}, 
+        {name:"Put", symbol: { fill: secondary }}
+    ]
+    const {main:primary}=theme.palette.primary
+    const {main:secondary}=theme.palette.secondary
     return (
     <div>
         <p>Call and Put Charts</p>
         {call.length>0&&put.length>0?
         (
            <VictoryChart containerComponent={<VictoryContainer style={containerStyle}/>} animate={animateStyle}>
+                <VictoryLegend titleOrientation="left" data={legendData(primary, secondary)} />
                 <VictoryLine 
-                    style={{data:{stroke:theme.palette.primary.main}}}
+                    style={{data:{stroke:primary}}}
                     data={call}
                     x='at_point'
                     interpolation="natural"
                     y='value'
                 />
                 <VictoryLine 
-                    style={{data:{stroke:theme.palette.secondary.main}}}
+                    style={{data:{stroke:secondary}}}
                     data={put}
                     x='at_point'
                     interpolation="natural"
