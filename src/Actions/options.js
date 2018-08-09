@@ -59,8 +59,6 @@ export const getSpline=dispatch=>(ticker, maturity)=>{
         value:true
     })
     gFetch(`options/${ticker}/prices/${maturity}?minRelativeBidAskSpread=.1&minOpenInterest=25`).then(({curve, points, ...attributes})=>{
-        console.log(curve)
-        console.log(points)
         dispatch({
             type:SPLINE,
             spline:{curve, points}

@@ -100,7 +100,6 @@ const updateOptions=dispatch=>{
     const getP=getPut(dispatch)
     const getC=getCall(dispatch)
     return attributes=>{
-        console.log(attributes)
         getP(attributes)
         getC(attributes)
     }

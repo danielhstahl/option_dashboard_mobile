@@ -28,7 +28,6 @@ const getPricesAndIV=type=>dispatch=>({sensitivity, ...body})=>{
     })
     return pFetch(`calculator/${type}/${sensitivity}`, body)
         .then(results=>{
-            console.log(results)
             if(handleIV(results)){
                 dispatch({
                     type:IV,
@@ -58,8 +57,6 @@ const gDensity=(type, densityType)=>dispatch=>body=>{
     })
     return pFetch(`density/${densityType}`, body)
         .then(results=>{
-            console.log(results)
-           
             return dispatch({
                 type,
                 value:results

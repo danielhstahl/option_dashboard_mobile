@@ -12,10 +12,8 @@ const gCalibrate=calibration=>dispatch=>body=>{
         type:LOADING_CALIBRATE,
         value:true
     })
-    console.log(body)
     return pFetch(`calibrator/${calibration}`, body)
         .then(parameters=>{
-            console.log(parameters)
             return dispatch({
                 type:CALIBRATED_PARAMETERS,
                 parameters:{
