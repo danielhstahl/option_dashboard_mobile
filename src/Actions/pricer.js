@@ -5,7 +5,12 @@
  */
 import {handleIV} from 'Services/inputHandler'
 import {pFetch } from 'Services/urlUtils'
-import {DENSITY, RISK_METRICS, LOADING, CALL, PUT, IV} from './constants'
+import {
+    DENSITY, RISK_METRICS, 
+    LOADING_DENSITY_CHART, 
+    CALL, PUT, IV,
+    LOADING_PUT_CALL_IV_CHART
+} from './constants'
 
 const mapTypeToAction={
     call:CALL,
@@ -14,7 +19,7 @@ const mapTypeToAction={
 
 const getPricesAndIV=type=>dispatch=>({sensitivity, ...body})=>{
     dispatch({
-        type:LOADING,
+        type:LOADING_PUT_CALL_IV_CHART,
         value:true
     })
     dispatch({
@@ -36,7 +41,7 @@ const getPricesAndIV=type=>dispatch=>({sensitivity, ...body})=>{
             })
         }).finally(()=>{
             dispatch({
-                type:LOADING,
+                type:LOADING_PUT_CALL_IV_CHART,
                 value:false
             })
         })
@@ -48,7 +53,7 @@ export const getCall=getPricesAndIV('call')
 
 const gDensity=(type, densityType)=>dispatch=>body=>{
     dispatch({
-        type:LOADING,
+        type:LOADING_DENSITY_CHART,
         value:true
     })
     return pFetch(`density/${densityType}`, body)
@@ -61,7 +66,7 @@ const gDensity=(type, densityType)=>dispatch=>body=>{
             })
         }).then(()=>{
             dispatch({
-                type:LOADING,
+                type:LOADING_DENSITY_CHART,
                 value:false
             })
         })

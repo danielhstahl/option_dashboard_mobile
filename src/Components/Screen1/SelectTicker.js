@@ -9,13 +9,28 @@ import {withStyles} from '@material-ui/core/styles'
 import InputLabel from '@material-ui/core/InputLabel'
 import LoadData from '../utils/LoadData'
 import {getCalibrationBounds} from 'Actions/calibrator'
+import {
+    outerStyleInline,
+    progressStyle,
+    PROGRESS_SIZE
+} from 'globals/progressStyles'
+import ProgressBar from 'Components/utils/ProgressBar'
+
 const InputTicker=withStyles(inputFieldTheme)(({
     onChange, value, 
-    onLoad,
+    onLoad, loadingTicker,
     options, classes
 })=>(
     <LoadData onLoad={onLoad}>
-        <FormControl className={classes.inputField}>
+        {loadingTicker? 
+            <div style={outerStyleInline}>
+                <ProgressBar 
+                    size={PROGRESS_SIZE} 
+                    style={progressStyle}
+                    loading={loadingTicker}
+                />
+            </div>
+        : <FormControl className={classes.inputField}>
             <InputLabel htmlFor="ticker-helper">Stock Ticker</InputLabel>
             <Select
                 native
@@ -34,12 +49,14 @@ const InputTicker=withStyles(inputFieldTheme)(({
                 ))}
             </Select>
         </FormControl>
+        }
     </LoadData>
 ))
 
-const mapStateToProps=({inputs, marketValues})=>({
+const mapStateToProps=({inputs, marketValues, loading})=>({
     value:inputs.ticker,
-    options:marketValues.tickers
+    options:marketValues.tickers,
+    loadingTicker:loading.ticker
 })
 
 const onChange=dispatch=>{

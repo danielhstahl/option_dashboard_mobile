@@ -5,10 +5,15 @@ import {
     VictoryScatter
 } from 'victory'
 import { withTheme } from '@material-ui/core/styles'
+import ProgressBar from 'Components/utils/ProgressBar'
 import {connect} from 'react-redux'
 import {containerStyle, animateStyle} from 'globals/chartStyles'
-
-const SplineCurves=withTheme()(({spline, theme})=>(
+import {
+    outerStyleStandalone,
+    progressStyle,
+    PROGRESS_SIZE
+} from 'globals/progressStyles'
+const SplineCurves=withTheme()(({spline, theme, loadingSpline})=>(
     spline.curve?
         <VictoryChart 
             animate={animateStyle} 
@@ -28,11 +33,19 @@ const SplineCurves=withTheme()(({spline, theme})=>(
                interpolation="natural"
                y='transformed_option'
             />
-        </VictoryChart>:null
+        </VictoryChart>
+        :<div style={outerStyleStandalone}>
+            <ProgressBar 
+                loading={loadingSpline}
+                style={progressStyle} 
+                size={PROGRESS_SIZE}
+            />
+        </div>
 ))
 
-const mapStateToProps=({calibratorValues})=>({
-    spline:calibratorValues.spline
+const mapStateToProps=({calibratorValues, loading})=>({
+    spline:calibratorValues.spline,
+    loadingSpline:loading.splineChart
 })
 
 export default connect(

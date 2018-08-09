@@ -5,11 +5,11 @@ import {pFetch, gFetch} from 'Services/urlUtils'
 import {
     CALIBRATED_PARAMETERS, 
     CONSTRAINTS, 
-    LOADING
+    LOADING_CALIBRATE
 } from './constants'
 const gCalibrate=calibration=>dispatch=>body=>{
     dispatch({
-        type:LOADING,
+        type:LOADING_CALIBRATE,
         value:true
     })
     console.log(body)
@@ -25,21 +25,17 @@ const gCalibrate=calibration=>dispatch=>body=>{
             })
         }).finally(()=>{
             dispatch({
-                type:LOADING,
+                type:LOADING_CALIBRATE,
                 value:false
             })
         })
 } 
 
-export const getCalibrationBounds=dispatch=>gFetch('parameters/parameter_ranges').then(constraints=>{
-    console.log(constraints)
-    dispatch({
-        type:CONSTRAINTS,
-        constraints
-    })
-})
-
-
+export const getCalibrationBounds=dispatch=>gFetch(
+    'parameters/parameter_ranges'
+).then(constraints=>dispatch({
+    type:CONSTRAINTS,
+    constraints
+}))
 
 export const calibrateModel=gCalibrate('calibrate')
-//export const splineCalibration=gCalibrate('spline')

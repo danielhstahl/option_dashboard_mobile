@@ -10,12 +10,14 @@ import {
     SPLINE,
     MARKET_VALUES,
     ASSET_PRICE,
-    LOADING
+    LOADING_MATURITY,
+    LOADING_TICKER,
+    LOADING_SPLINE
 } from './constants'
 
 export const getOptionFeatures=dispatch=>ticker=>{
     dispatch({
-        type:LOADING,
+        type:LOADING_MATURITY,
         value:true
     })
     gFetch(`options/${ticker}/maturities`).then(features=>{
@@ -28,14 +30,14 @@ export const getOptionFeatures=dispatch=>ticker=>{
             asset:features.asset
         })
     }).finally(()=>dispatch({
-        type:LOADING,
+        type:LOADING_MATURITY,
         value:false
     }))
 }
 
 export const getTickers=dispatch=>{
     dispatch({
-        type:LOADING,
+        type:LOADING_TICKER,
         value:true
     })
     gFetch('options/tickers').then(tickers=>{
@@ -45,7 +47,7 @@ export const getTickers=dispatch=>{
         })
     }).finally(()=>{
         dispatch({
-            type:LOADING,
+            type:LOADING_TICKER,
             value:false
         })
     })
@@ -53,7 +55,7 @@ export const getTickers=dispatch=>{
 
 export const getSpline=dispatch=>(ticker, maturity)=>{
     dispatch({
-        type:LOADING,
+        type:LOADING_SPLINE,
         value:true
     })
     gFetch(`options/${ticker}/prices/${maturity}?minRelativeBidAskSpread=.1&minOpenInterest=25`).then(({curve, points, ...attributes})=>{
@@ -69,7 +71,7 @@ export const getSpline=dispatch=>(ticker, maturity)=>{
         })
     }).finally(()=>{
         dispatch({
-            type:LOADING,
+            type:LOADING_SPLINE,
             value:false
         })
     })

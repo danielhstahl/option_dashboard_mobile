@@ -7,15 +7,16 @@ import {
 import ProgressBar from 'Components/utils/ProgressBar'
 import {connect} from 'react-redux'
 import { withTheme } from '@material-ui/core/styles'
-import {progressStyleGenerator} from 'globals/utils'
 import {containerStyle, animateStyle, titleStyle} from 'globals/chartStyles'
 import {
-    CHART_MIN_HEIGHT,
     FIXED_DECIMALS,
 } from 'globals/constants'
-const PROGRESS_SIZE=36
-const divStyle={position:'relative', minHeight:CHART_MIN_HEIGHT}
-const progressStyle=progressStyleGenerator(PROGRESS_SIZE)
+import {
+    outerStyleStandalone,
+    progressStyle,
+    PROGRESS_SIZE
+} from 'globals/progressStyles'
+
 
 const getMax=(data, key)=>data.reduce((aggr, cur)=>{
     return cur[key]>aggr?cur[key]:aggr
@@ -29,7 +30,7 @@ const getVaR=(riskMetrics, density)=>[
         y:getMax(density, 'value')
     }
 ]
-const DensityChart=withTheme()(({density, theme, riskMetrics})=>(
+const DensityChart=withTheme()(({density, theme, riskMetrics, loadingDensity})=>(
     density.length>0&&riskMetrics.value_at_risk?
     <VictoryChart 
         animate={animateStyle}
@@ -37,9 +38,11 @@ const DensityChart=withTheme()(({density, theme, riskMetrics})=>(
     >
         <VictoryLabel 
             {...titleStyle} 
+            x={53}
             text={[
-                "Risk Neutral Density and Value at Risk",
-                `Value at Risk: ${riskMetrics.value_at_risk.toFixed(FIXED_DECIMALS)}, Expected Shortfall: ${riskMetrics.expected_shortfall.toFixed(FIXED_DECIMALS)}`
+                "Risk Neutral Density",
+                `Value at Risk: ${riskMetrics.value_at_risk.toFixed(FIXED_DECIMALS)}`,
+                `Expected Shortfall: ${riskMetrics.expected_shortfall.toFixed(FIXED_DECIMALS)}`
             ]}
 
         />
@@ -56,17 +59,19 @@ const DensityChart=withTheme()(({density, theme, riskMetrics})=>(
             data={getVaR(riskMetrics, density)}
         />
     </VictoryChart>
-    :<div style={divStyle}>
+    :<div style={outerStyleStandalone}>
         <ProgressBar 
+            loading={loadingDensity}
             style={progressStyle} 
             size={PROGRESS_SIZE}
         />
     </div>
 ))
 
-const mapStateToProps=({pricerValues})=>({
+const mapStateToProps=({pricerValues, loading})=>({
     density:pricerValues.density,
-    riskMetrics:pricerValues.riskMetrics
+    riskMetrics:pricerValues.riskMetrics,
+    loadingDensity:loading.densityChart
 })
 
 export default connect(

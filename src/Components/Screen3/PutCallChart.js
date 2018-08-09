@@ -7,17 +7,14 @@ import {
 import { withTheme } from '@material-ui/core/styles'
 import {connect} from 'react-redux'
 import ProgressBar from 'Components/utils/ProgressBar'
-import {progressStyleGenerator} from 'globals/utils'
 import {containerStyle, animateStyle, titleStyle} from 'globals/chartStyles'
 import {
-    CHART_MIN_HEIGHT
-} from 'globals/constants'
+    outerStyleStandalone,
+    progressStyle,
+    PROGRESS_SIZE
+} from 'globals/progressStyles'
 
-const PROGRESS_SIZE=36
-const divStyle={position:'relative', minHeight:CHART_MIN_HEIGHT}
-const progressStyle=progressStyleGenerator(PROGRESS_SIZE)
-
-const PutCallChart=withTheme()(({call, put, theme, strikes, prices, sensitivity})=>{
+const PutCallChart=withTheme()(({call, put, theme, strikes, prices, sensitivity, loadingPutCall})=>{
     const scatter=strikes.map((v, index)=>({
         strike:v,
         price:prices[index]
@@ -62,20 +59,22 @@ const PutCallChart=withTheme()(({call, put, theme, strikes, prices, sensitivity}
                 />}
             </VictoryChart>
         ):(
-            <div style={divStyle}>
+            <div style={outerStyleStandalone}>
                 <ProgressBar 
                     style={progressStyle} 
                     size={PROGRESS_SIZE}
+                    loading={loadingPutCall}
                 />
             </div>
         )
 )})
 
-const mapStateToProps=({pricerValues, calibratorValues})=>({
+const mapStateToProps=({pricerValues, calibratorValues, loading})=>({
     call:pricerValues.call,
     put:pricerValues.put,
     strikes:calibratorValues.attributes.strikes,
-    prices:calibratorValues.attributes.prices
+    prices:calibratorValues.attributes.prices,
+    loadingPutCall:loading.putCallIVChart
 })
 
 export default connect(

@@ -3,20 +3,23 @@ import Button from '@material-ui/core/Button'
 import {connect} from 'react-redux'
 import ProgressBar from '../utils/ProgressBar'
 import {calibrateModel} from 'Actions/calibrator'
-import {progressStyleGenerator} from 'globals/utils'
+import {
+    outerStyleInline,
+    progressStyle,
+    PROGRESS_SIZE
+} from 'globals/progressStyles'
 
-const PROGRESS_SIZE=36
-
-const divStyle={position:'relative'}
-const progressStyle=progressStyleGenerator(PROGRESS_SIZE)
 
 const checkRequiredFields=({
     constraints, maturity, asset
 })=>constraints&&maturity&&asset
 
-const ButtonToCalibrate=({attributes, loading, onClick})=>(
+const ButtonToCalibrate=({
+    attributes, loading, 
+    onClick, loadingCalibrate
+})=>(
     checkRequiredFields(attributes)?
-    <div style={divStyle}>
+    <div style={outerStyleInline}>
         <Button 
             color="secondary"
             variant="contained"
@@ -26,14 +29,19 @@ const ButtonToCalibrate=({attributes, loading, onClick})=>(
         >
             Calibrate
         </Button>
-        <ProgressBar key='progress' size={PROGRESS_SIZE} style={progressStyle}/>
+        <ProgressBar 
+            key='progress' 
+            size={PROGRESS_SIZE} 
+            style={progressStyle}
+            loading={loadingCalibrate}
+        />
     </div>:null
 )
 
 
-const mapStateToProps=({calibratorValues, inputs})=>({
+const mapStateToProps=({calibratorValues, loading})=>({
     attributes:calibratorValues.attributes,
-    loading:inputs.loading
+    loadingCalibrate:loading.calibrate
 })
 const mapDispatchToProps=dispatch=>({
     onClick:calibrateModel(dispatch)
