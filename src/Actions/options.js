@@ -20,19 +20,20 @@ export const getOptionFeatures=dispatch=>ticker=>{
         type:LOADING_MATURITY,
         value:true
     })
-    gFetch(`options/${ticker}/maturities`).then(features=>{
-        dispatch({
-            type:OPTION_MATURITIES,
-            maturities:features.expirationDates
-        })
-        dispatch({
-            type:ASSET_PRICE,
-            asset:features.asset
-        })
-    }).finally(()=>dispatch({
-        type:LOADING_MATURITY,
-        value:false
-    }))
+    gFetch(`options/${ticker}/maturities`)
+        .then(features=>{
+            dispatch({
+                type:OPTION_MATURITIES,
+                maturities:features.expirationDates
+            })
+            dispatch({
+                type:ASSET_PRICE,
+                asset:features.asset
+            })
+        }).finally(()=>dispatch({
+            type:LOADING_MATURITY,
+            value:false
+        }))
 }
 
 export const getTickers=dispatch=>{
@@ -40,17 +41,15 @@ export const getTickers=dispatch=>{
         type:LOADING_TICKER,
         value:true
     })
-    gFetch('options/tickers').then(tickers=>{
-        dispatch({
+    gFetch('options/tickers')
+        .then(tickers=>dispatch({
             type:TICKERS,
             tickers
-        })
-    }).finally(()=>{
-        dispatch({
+        }))
+        .finally(()=>dispatch({
             type:LOADING_TICKER,
             value:false
-        })
-    })
+        }))
 }
 
 export const getSpline=dispatch=>(ticker, maturity)=>{

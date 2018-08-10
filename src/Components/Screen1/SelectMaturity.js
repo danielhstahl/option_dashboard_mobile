@@ -7,8 +7,10 @@ import {inputFieldTheme} from 'Themes/inputFields'
 import {withStyles} from '@material-ui/core/styles'
 import InputLabel from '@material-ui/core/InputLabel'
 import {getSpline} from 'Actions/options'
+import PropTypes from 'prop-types'
 
-const SelectMaturity=withStyles(inputFieldTheme)(({
+//export for testing
+export const SelectMaturity=withStyles(inputFieldTheme)(({
     value, options, ticker,
     onChange, classes
 })=>(
@@ -30,8 +32,9 @@ const SelectMaturity=withStyles(inputFieldTheme)(({
             <option value='' key='none'></option>
             {options.map(option=>{
                 const date=new Date(option)
+                const optionStr=option.toString()
                 return (
-                    <option key={option} value={option}>
+                    <option key={optionStr} value={optionStr}>
                         {date.toLocaleDateString()}
                     </option>
                 )
@@ -39,6 +42,15 @@ const SelectMaturity=withStyles(inputFieldTheme)(({
         </Select>
     </FormControl>:null
 ))
+SelectMaturity.propTypes={
+    value:PropTypes.string.isRequired, //is this a string or a number?
+    options:PropTypes.arrayOf(PropTypes.number.isRequired).isRequired, //empty array is ok?
+    onChange:PropTypes.func.isRequired,
+    classes:PropTypes.shape({
+        inputField:PropTypes.string.isRequired
+    }),
+    ticker:PropTypes.string.isRequired
+}
 const mapStateToProps=({marketValues, inputs})=>({
     value:inputs.maturity,
     ticker:inputs.ticker,

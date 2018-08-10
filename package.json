@@ -36,6 +36,7 @@
     "body-parser": "^1.18.3",
     "enzyme": "^3.4.1",
     "enzyme-adapter-react-16": "^1.2.0",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "jest-fetch-mock": "^1.6.5"
   }
 }

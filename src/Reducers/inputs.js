@@ -1,4 +1,7 @@
-import {TICKER_VALUE, MATURITY_VALUE} from 'Actions/constants'
+import {
+    TICKER_VALUE, 
+    MATURITY_VALUE
+} from 'Actions/constants'
 import { combineReducers } from 'redux'
 
 const ticker=(state='', action)=>{
