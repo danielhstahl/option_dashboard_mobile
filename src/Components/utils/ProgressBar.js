@@ -1,14 +1,15 @@
 import React from 'react'
 import CircularProgress from '@material-ui/core/CircularProgress'
-//import {connect} from 'react-redux'
+import PropTypes from 'prop-types'
 
-/*const mapStateToProps=({inputs})=>({
-    loading:inputs.loading
-})*/
-
-export default ({loading, dispatch, ...rest})=>loading&&<CircularProgress 
-    color="secondary"
-    {...rest}
-/>
-
-//export default connect(mapStateToProps)(CustomProgress)
+const ProgressBar=({loading, ...rest})=>(
+    loading&&
+    <CircularProgress 
+        color="secondary"
+        {...rest}
+    />
+)
+ProgressBar.propTypes={
+    loading:PropTypes.bool.isRequired
+}
+export default ProgressBar

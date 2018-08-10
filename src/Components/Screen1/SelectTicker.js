@@ -15,8 +15,11 @@ import {
     PROGRESS_SIZE
 } from 'globals/progressStyles'
 import ProgressBar from 'Components/utils/ProgressBar'
+import PropTypes from 'prop-types'
 
-const InputTicker=withStyles(inputFieldTheme)(({
+
+//export for testing
+export const SelectTicker=withStyles(inputFieldTheme)(({
     onChange, value, 
     onLoad, loadingTicker,
     options, classes
@@ -53,6 +56,20 @@ const InputTicker=withStyles(inputFieldTheme)(({
     </LoadData>
 ))
 
+SelectTicker.propTypes={
+    onChange:PropTypes.func.isRequired,
+    value:PropTypes.string.isRequired,
+    onLoad:PropTypes.func.isRequired,
+    loadingTicker:PropTypes.bool.isRequired,
+    options:PropTypes.arrayOf(PropTypes.shape({
+        Symbol:PropTypes.string.isRequired,
+        Name:PropTypes.string.isRequired
+    })),
+    classes:PropTypes.shape({
+        inputField:PropTypes.string.isRequired
+    })
+}
+
 const mapStateToProps=({inputs, marketValues, loading})=>({
     value:inputs.ticker,
     options:marketValues.tickers,
@@ -80,4 +97,4 @@ const mapDispatchToProps=dispatch=>({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(InputTicker)
+)(SelectTicker)
