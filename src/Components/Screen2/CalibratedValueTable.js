@@ -7,7 +7,9 @@ import TableRow from '@material-ui/core/TableRow'
 import {connect} from 'react-redux'
 import {FIXED_DECIMALS} from 'globals/constants'
 import {isEmpty} from 'globals/utils'
-const CalibratedValueTable=({calibrated})=>
+import PropTypes from 'prop-types'
+//exported for testing
+export const CalibratedValueTable=({calibrated})=>
     isEmpty(calibrated)? 
     null:
     (
@@ -31,7 +33,9 @@ const CalibratedValueTable=({calibrated})=>
         </Table>
     )
 
-
+CalibratedValueTable.propTypes={
+    calibrated:PropTypes.object.isRequired
+}
 const mapStateToProps=({calibratorValues})=>({
     calibrated:calibratorValues.calibrated
 })

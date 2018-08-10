@@ -13,7 +13,10 @@ import {
     progressStyle,
     PROGRESS_SIZE
 } from 'globals/progressStyles'
-const SplineCurves=withTheme()(({spline, theme, loadingSpline})=>(
+import PropTypes from 'prop-types'
+
+//exported for testing
+export const SplineChart=withTheme()(({spline, theme, loadingSpline})=>(
     spline.curve?
         <VictoryChart 
             animate={animateStyle} 
@@ -42,6 +45,29 @@ const SplineCurves=withTheme()(({spline, theme, loadingSpline})=>(
             />
         </div>
 ))
+SplineChart.propTypes={
+    spline:PropTypes.shape({
+        curve:PropTypes.arrayOf(PropTypes.shape({
+            log_strike:PropTypes.number.isRequired,
+            transformed_option:PropTypes.number.isRequired
+        })),
+        points:PropTypes.arrayOf(PropTypes.shape({
+            log_strike:PropTypes.number.isRequired,
+            transformed_option:PropTypes.number.isRequired
+        }))
+    }),
+    theme:PropTypes.shape({
+        palette:PropTypes.shape({
+            primary:PropTypes.shape({
+                main:PropTypes.string.isRequired
+            }).isRequired,
+            secondary:PropTypes.shape({
+                main:PropTypes.string.isRequired
+            }).isRequired,
+        }).isRequired
+    }).isRequired,
+    loadingSpline:PropTypes.bool.isRequired
+}
 
 const mapStateToProps=({calibratorValues, loading})=>({
     spline:calibratorValues.spline,
@@ -50,7 +76,7 @@ const mapStateToProps=({calibratorValues, loading})=>({
 
 export default connect(
     mapStateToProps
-)(SplineCurves)
+)(SplineChart)
 
 
 

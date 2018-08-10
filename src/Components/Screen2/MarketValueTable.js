@@ -4,10 +4,12 @@ import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import WarningNoValues from '../utils/WarningNoValues'
+import WarningNoValues from 'Components/utils/WarningNoValues'
 import {connect} from 'react-redux'
 import {FIXED_DECIMALS} from 'globals/constants'
-const MarketValueTable=({attributes})=>(
+import PropTypes from 'prop-types'
+//export for testing
+export const MarketValueTable=({attributes})=>(
     attributes.asset?<Table>
         <TableHead>
             <TableRow>
@@ -25,6 +27,13 @@ const MarketValueTable=({attributes})=>(
         </TableBody>
     </Table>:<WarningNoValues links={[{to:'/tab/1', label:'Market Prices'}]}/>
 )
+MarketValueTable.propTypes={
+    attributes:PropTypes.shape({
+        asset:PropTypes.number,
+        rate:PropTypes.number,
+        maturity:PropTypes.number,
+    })
+}
 
 const mapStateToProps=({calibratorValues})=>({
     attributes:calibratorValues.attributes
