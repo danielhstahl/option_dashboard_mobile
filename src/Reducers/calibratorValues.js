@@ -50,7 +50,8 @@ const defaultAttributes={
     strikes:[]
 }
 
-const attributes=(state=defaultAttributes, action)=>{
+//export for testing
+export const attributes=(state=defaultAttributes, action)=>{
     switch(action.type){
         case MARKET_VALUES:
             return {...state, ...action.attributes}

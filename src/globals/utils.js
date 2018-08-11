@@ -13,7 +13,7 @@ export const getSymmetricFromRight=(xKey, yKey, arr, epsilon)=>{
     const eps=getAboveEpsilon(epsilon)
     const condArr=eps(arr, yKey)
     const lastXVal=condArr[condArr.length-1][xKey]
-    return arr.filter(v=>v[xKey]>-lastXVal&&(v[yKey]>epsilon||v[xKey]<0))
+    return arr.filter(v=>v[xKey]>=-lastXVal&&(v[yKey]>epsilon||v[xKey]<0))
 }
 
 
