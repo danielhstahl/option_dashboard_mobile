@@ -16,12 +16,15 @@ import {
     progressStyle,
     PROGRESS_SIZE
 } from 'globals/progressStyles'
+import PropTypes from 'prop-types'
 
-
-const getMax=(data, key)=>data.reduce((aggr, cur)=>{
+//exported for testing
+export const getMax=(data, key)=>data.reduce((aggr, cur)=>{
     return cur[key]>aggr?cur[key]:aggr
-}, 0)
-const getVaR=(riskMetrics, density)=>[
+}, Number.NEGATIVE_INFINITY)
+
+//exported for testing
+export const getVaR=(riskMetrics, density)=>[
     {
         x:-riskMetrics.value_at_risk,
         y:0
@@ -30,7 +33,8 @@ const getVaR=(riskMetrics, density)=>[
         y:getMax(density, 'value')
     }
 ]
-const DensityChart=withTheme()(({density, theme, riskMetrics, loadingDensity})=>(
+//exported for testing
+export const DensityChart=withTheme()(({density, theme, riskMetrics, loadingDensity})=>(
     density.length>0&&riskMetrics.value_at_risk?
     <VictoryChart 
         animate={animateStyle}
@@ -67,6 +71,27 @@ const DensityChart=withTheme()(({density, theme, riskMetrics, loadingDensity})=>
         />
     </div>
 ))
+DensityChart.propTypes={
+    density:PropTypes.arrayOf(PropTypes.shape({
+        at_point:PropTypes.number.isRequired,
+        value:PropTypes.number.isRequired
+    })).isRequired,
+    riskMetrics:PropTypes.shape({
+        value_at_risk:PropTypes.number,
+        expected_shortfall:PropTypes.number
+    }).isRequired,
+    loadingDensity:PropTypes.bool.isRequired,
+    theme:PropTypes.shape({
+        palette:PropTypes.shape({
+            primary:PropTypes.shape({
+                main:PropTypes.string.isRequired
+            }).isRequired,
+            secondary:PropTypes.shape({
+                main:PropTypes.string.isRequired
+            }).isRequired,
+        }).isRequired
+    })
+}
 
 const mapStateToProps=({pricerValues, loading})=>({
     density:pricerValues.density,

@@ -37,7 +37,7 @@ CalibratedValueTable.propTypes={
     calibrated:PropTypes.object.isRequired
 }
 const mapStateToProps=({calibratorValues})=>({
-    calibrated:calibratorValues.calibrated
+    calibrated:calibratorValues.calibrated //CALIBRATED_PARAMETERS
 })
 
 export default connect(mapStateToProps)(CalibratedValueTable)

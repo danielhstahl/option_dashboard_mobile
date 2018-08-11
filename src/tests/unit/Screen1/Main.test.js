@@ -107,7 +107,6 @@ describe('functionality', ()=>{
     it('shows only ticker input with default reducer', ()=>{
         fetch.once(JSON.stringify([])) //getTickers
         fetch.once(JSON.stringify({hello:'world'})) //getCalibrationBounds
-        console.log(store.getState()) //state gets mututated with render because of LoadData in SelectTicker
         const screen1=mount(
             <Provider store={store}>
                 <Router>
@@ -132,7 +131,6 @@ describe('functionality', ()=>{
             type:OPTION_MATURITIES,
             maturities:[5, 6, 7]
         })
-        console.log(store.getState())
         const screen1=mount(
             <Provider store={store}>
                 <Router>

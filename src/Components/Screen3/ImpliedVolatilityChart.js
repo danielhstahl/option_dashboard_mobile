@@ -15,7 +15,10 @@ import {
     PROGRESS_SIZE
 } from 'globals/progressStyles'
 
-const ImpliedVolatilityChart=withTheme()(({
+import PropTypes from 'prop-types'
+
+//exported for testing
+export const ImpliedVolatilityChart=withTheme()(({
     impliedVolatility, theme, 
     loadingIV
 })=>(
@@ -43,6 +46,24 @@ const ImpliedVolatilityChart=withTheme()(({
     </div>
     
 ))
+
+ImpliedVolatilityChart.propTypes={
+    impliedVolatility:PropTypes.arrayOf(PropTypes.shape({
+        at_point:PropTypes.number.isRequired,
+        iv:PropTypes.number.isRequired
+    })),
+    loadingIV:PropTypes.bool.isRequired,
+    theme:PropTypes.shape({
+        palette:PropTypes.shape({
+            primary:PropTypes.shape({
+                main:PropTypes.string.isRequired
+            }).isRequired,
+            secondary:PropTypes.shape({
+                main:PropTypes.string.isRequired
+            }).isRequired,
+        }).isRequired
+    })
+}
 
 const mapStateToProps=({pricerValues, loading})=>({
     impliedVolatility:pricerValues.impliedVolatility,

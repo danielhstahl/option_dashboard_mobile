@@ -45,7 +45,9 @@ const attributesToCalibrate=[
 ]
 const defaultAttributes={
     num_u:8,
-    quantile:.01
+    quantile:.01,
+    prices:[],
+    strikes:[]
 }
 
 const attributes=(state=defaultAttributes, action)=>{

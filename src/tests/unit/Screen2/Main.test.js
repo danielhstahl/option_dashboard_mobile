@@ -1,15 +1,13 @@
 import React from 'react'
 import Screen2 from 'Components/Screen2/Main'
 import Button from '@material-ui/core/Button'
-import {shallow, mount} from 'enzyme'
-import TableRow from '@material-ui/core/TableRow'
+import {mount} from 'enzyme'
 import Table from '@material-ui/core/Table'
-import TableCell from '@material-ui/core/TableCell'
+
 import {
     MemoryRouter as Router
 } from 'react-router-dom'
-import WarningNoValues from 'Components/utils/WarningNoValues'
-import {ButtonToCalibrate} from 'Components/Screen2/ButtonToCalibrate'
+
 import {Provider} from 'react-redux'
 import { createStore } from 'redux'
 import reducer from 'Reducers/reducer'
@@ -22,7 +20,6 @@ import {
     MuiThemeProvider, 
     createMuiTheme 
 } from '@material-ui/core/styles'
-import {delay} from 'setupTests'
 import themeObject from 'Themes/overallTheme'
 const theme = createMuiTheme(themeObject)
 
@@ -47,7 +44,8 @@ describe('Render', ()=>{
         store.dispatch({
             type:CALIBRATED_PARAMETERS,
             parameters:{
-                optimal_parameters:{hello:5, world:6},
+                hello:5, 
+                world:6,
                 mse:.005
             }
         })
@@ -101,7 +99,7 @@ describe('functionality', ()=>{
         )
         expect(screen2.find(Table).length).toEqual(1)
     })
-    it('shows button and on click creates a table', ()=>{
+    it('shows calibrate and button after Calibrated parameters', ()=>{
         store.dispatch({
             type:MARKET_VALUES,
             attributes:{
@@ -123,7 +121,14 @@ describe('functionality', ()=>{
                 rho:5
             }
         })
-        fetch.once(JSON.stringify({optimal_parameters:{hello:5, world:6}}))//calibrateModel
+        store.dispatch({
+            type:CALIBRATED_PARAMETERS,
+            parameters:{
+                hello:5, 
+                world:6,
+                mse:.005
+            }
+        })
         const screen2=mount(
             <Provider store={store}>
                 <MuiThemeProvider theme={theme}> 
@@ -133,16 +138,8 @@ describe('functionality', ()=>{
                 </MuiThemeProvider>
             </Provider>
         )
-        expect(screen2.find(ButtonToCalibrate).length).toEqual(1)
-        screen2.find(ButtonToCalibrate).find(Button).props().onClick() //click button
-        screen2.update()
         expect(screen2.find(Table).length).toEqual(2)
-
-        /*return delay(50)
-            .then(()=>{
-                screen2.update()
-                return expect(screen2.find(Table).length).toEqual(2)
-            })    */
+        expect(screen2.find(Button).length).toEqual(2)
     })
        
 })

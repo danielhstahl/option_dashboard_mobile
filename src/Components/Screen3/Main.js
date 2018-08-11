@@ -5,12 +5,12 @@ import {connect} from 'react-redux'
 import PutCallChart from './PutCallChart'
 import DensityChart from './DensityChart'
 import ImpliedVolatilityChart from './ImpliedVolatilityChart'
-import LoadData from '../utils/LoadData'
+import LoadData from 'Components/utils/LoadData'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
-import WarningNoValues from '../utils/WarningNoValues'
+import WarningNoValues from 'Components/utils/WarningNoValues'
 import { isEmpty } from 'globals/utils'
-
+import PropTypes from 'prop-types'
 const getBaseUrl=match=>match.path.split(":")[0] //this also exists in app.js
 export const sensitivities=[
     {value:'price', label:'Price'},
@@ -25,7 +25,8 @@ const handleChange=(match, history, updateOptions, attributes)=>
         history.push(getBaseUrl(match)+sensitivity)
     }
     
-const SensitivityNav=({match, history, updateOptions, attributes})=>(
+//exported for testing
+export const SensitivityNav=({match, history, updateOptions, attributes})=>(
     <Tabs 
         value={sensitivities
             .findIndex(v=>v.value===match.params.sensitivity)
@@ -36,8 +37,22 @@ const SensitivityNav=({match, history, updateOptions, attributes})=>(
         {sensitivities.map(({value, label})=><Tab label={label} key={value}/>)}
     </Tabs>
 )
-
-const ChartsScreen=({onLoad, attributes, match, history, updateOptions, calibrated})=>isEmpty(calibrated)?(
+SensitivityNav.propTypes={
+    match:PropTypes.shape({
+        url:PropTypes.string.isRequired,
+        path:PropTypes.string.isRequired,
+        params:PropTypes.shape({
+            sensitivity:PropTypes.string.isRequired
+        }).isRequired
+    }).isRequired,
+    history:PropTypes.shape({
+        push:PropTypes.func.isRequired
+    }).isRequired,
+    updateOptions:PropTypes.func.isRequired,
+    attributes:PropTypes.object.isRequired
+}
+//exported for testing
+export const ChartsScreen=({onLoad, attributes, match, history, updateOptions, calibrated})=>isEmpty(calibrated)?(
 <Grid fluid>
     <Row>
         <Col xs={12}>
@@ -76,6 +91,22 @@ const ChartsScreen=({onLoad, attributes, match, history, updateOptions, calibrat
         </Grid>
     </LoadData>
 )
+ChartsScreen.propTypes={
+    onLoad:PropTypes.func.isRequired,
+    attributes:PropTypes.object.isRequired,
+    match:PropTypes.shape({
+        url:PropTypes.string.isRequired,
+        path:PropTypes.string.isRequired,
+        params:PropTypes.shape({
+            sensitivity:PropTypes.string.isRequired
+        }).isRequired
+    }).isRequired,
+    history:PropTypes.shape({
+        push:PropTypes.func.isRequired
+    }).isRequired,
+    updateOptions:PropTypes.func.isRequired,
+    calibrated:PropTypes.object.isRequired
+}
 const mapStateToProps=({calibratorValues})=>({
     attributes:{
         ...calibratorValues.attributes, ...calibratorValues.calibrated

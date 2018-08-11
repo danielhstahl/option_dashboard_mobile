@@ -65,7 +65,7 @@ SplineChart.propTypes={
                 main:PropTypes.string.isRequired
             }).isRequired,
         }).isRequired
-    }).isRequired,
+    }),
     loadingSpline:PropTypes.bool.isRequired
 }
 

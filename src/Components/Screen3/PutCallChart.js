@@ -13,8 +13,13 @@ import {
     progressStyle,
     PROGRESS_SIZE
 } from 'globals/progressStyles'
+import PropTypes from 'prop-types'
 
-const PutCallChart=withTheme()(({call, put, theme, strikes, prices, sensitivity, loadingPutCall})=>{
+//exported for testing
+export const PutCallChart=withTheme()(({
+    call, put, theme, strikes, 
+    prices, sensitivity, loadingPutCall
+})=>{
     const scatter=strikes.map((v, index)=>({
         strike:v,
         price:prices[index]
@@ -68,7 +73,30 @@ const PutCallChart=withTheme()(({call, put, theme, strikes, prices, sensitivity,
             </div>
         )
 )})
-
+PutCallChart.propTypes={
+    call:PropTypes.arrayOf(PropTypes.shape({
+        at_point:PropTypes.number.isRequired,
+        value:PropTypes.number.isRequired
+    })),
+    put:PropTypes.arrayOf(PropTypes.shape({
+        at_point:PropTypes.number.isRequired,
+        value:PropTypes.number.isRequired
+    })),
+    strikes:PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+    prices:PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+    loadingPutCall:PropTypes.bool.isRequired,
+    theme:PropTypes.shape({
+        palette:PropTypes.shape({
+            primary:PropTypes.shape({
+                main:PropTypes.string.isRequired
+            }).isRequired,
+            secondary:PropTypes.shape({
+                main:PropTypes.string.isRequired
+            }).isRequired,
+        }).isRequired
+    }),
+    sensitivity:PropTypes.string.isRequired
+}
 const mapStateToProps=({pricerValues, calibratorValues, loading})=>({
     call:pricerValues.call,
     put:pricerValues.put,
