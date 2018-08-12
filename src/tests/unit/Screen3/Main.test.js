@@ -1,7 +1,13 @@
 import React from 'react'
-import {SensitivityNav, ChartsScreen} from 'Components/Screen3/Main'
+import {
+    SensitivityNav, 
+    ChartsScreen, onLoad, 
+    updateOptions
+} from 'Components/Screen3/Main'
 import {mount} from 'enzyme'
 import Tabs from '@material-ui/core/Tabs'
+import {delay} from 'setupTests'
+
 import {
     MemoryRouter as Router
 } from 'react-router-dom'
@@ -15,6 +21,7 @@ import {
     createMuiTheme 
 } from '@material-ui/core/styles'
 import themeObject from 'Themes/overallTheme'
+import { EAFNOSUPPORT } from 'constants';
 const theme = createMuiTheme(themeObject)
 
 describe('Render SensitivityNav', ()=>{
@@ -270,4 +277,46 @@ describe('ChartsScreen functionality', ()=>{
     })
     
        
+})
+
+
+describe('on load', ()=>{
+
+    beforeEach(()=>{
+        fetch.resetMocks()
+    })
+    it('executes 4 fetches on load', ()=>{
+        fetch.mockResponse(JSON.stringify([{
+            value:4,
+            at_point:5,
+            iv:3
+        }])) //density/densityType
+        const dispatch=jest.fn()
+        onLoad(dispatch)({attributes:{hello:5}, sensitivity:5})
+        expect(fetch.mock.calls.length).toEqual(4)
+        return delay(50)
+            .then(()=>{
+                return expect(dispatch.mock.calls.length).toEqual(16)
+            })
+    })
+})
+
+describe('updateOptions', ()=>{
+    beforeEach(()=>{
+        fetch.resetMocks()
+    })
+    it('calls jest twice and dispatch 10 times', ()=>{
+        fetch.mockResponse(JSON.stringify([{
+            value:4,
+            at_point:5,
+            iv:3
+        }])) //density/densityType
+        const dispatch=jest.fn()
+        updateOptions(dispatch)({attributes:{hello:5}})
+        expect(fetch.mock.calls.length).toEqual(2)
+        return delay(50)
+            .then(()=>{
+                return expect(dispatch.mock.calls.length).toEqual(10)
+            })
+    })
 })

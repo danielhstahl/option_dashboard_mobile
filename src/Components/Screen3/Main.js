@@ -114,7 +114,8 @@ const mapStateToProps=({calibratorValues})=>({
     calibrated:calibratorValues.calibrated
 })
 
-const onLoad=dispatch=>{
+//exported for testing
+export const onLoad=dispatch=>{
     const getP=getPut(dispatch)
     const getC=getCall(dispatch)
     const getD=getDensity(dispatch)
@@ -127,7 +128,8 @@ const onLoad=dispatch=>{
         getR(attributes)
     }
 }
-const updateOptions=dispatch=>{
+//export for testing
+export const updateOptions=dispatch=>{
     const getP=getPut(dispatch)
     const getC=getCall(dispatch)
     return attributes=>{

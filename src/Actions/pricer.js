@@ -61,7 +61,7 @@ const gDensity=(type, densityType)=>dispatch=>body=>{
                 type,
                 value:results
             })
-        }).then(()=>{
+        }).finally(()=>{
             dispatch({
                 type:LOADING_DENSITY_CHART,
                 value:false
