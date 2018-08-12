@@ -8,3 +8,5 @@ const createBody=params=>({
 export const pFetch=(endpoint, body)=>fetch(baseUrl+endpoint, createBody(body)).then(res=>res.json())
 
 export const gFetch=endpoint=>fetch(baseUrl+endpoint).then(res=>res.json())
+
+export const getBaseUrl=match=>match.path.split(":")[0]

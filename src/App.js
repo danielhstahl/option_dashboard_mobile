@@ -6,9 +6,11 @@ import {Route, Redirect, Switch} from 'react-router-dom'
 import Screen1 from 'Components/Screen1/Main'
 import Screen2 from 'Components/Screen2/Main'
 import Screen3, {sensitivities} from 'Components/Screen3/Main'
+import {handleHistoryPush} from 'globals/urlUtils'
 
-const getBaseUrl=match=>match.path.split(":")[0]
-const handleChange=(match, history)=>(_, value)=>history.push(getBaseUrl(match)+(value+1))
+const handleChange=(match, history)=>(_, value)=>{
+  history.push(getBaseUrl(match)+(value+1))
+}
 const AppBarInst=({match, history})=>(
   <AppBar position='sticky'>
     <Tabs 

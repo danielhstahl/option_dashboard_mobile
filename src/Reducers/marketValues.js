@@ -1,7 +1,6 @@
 import {
     OPTION_MATURITIES, 
     TICKERS,
-    ASSET_PRICE,
     TICKER_VALUE
 } from 'Actions/constants'
 

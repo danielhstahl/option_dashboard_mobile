@@ -11,7 +11,8 @@ import Tab from '@material-ui/core/Tab'
 import WarningNoValues from 'Components/utils/WarningNoValues'
 import { isEmpty } from 'globals/utils'
 import PropTypes from 'prop-types'
-const getBaseUrl=match=>match.path.split(":")[0] //this also exists in app.js
+import {getBaseUrl} from 'globals/urlUtils'
+
 export const sensitivities=[
     {value:'price', label:'Price'},
     {value:'delta', label:'Delta'},
@@ -24,7 +25,8 @@ const handleChange=(match, history, updateOptions, attributes)=>
         updateOptions({...attributes, sensitivity})
         history.push(getBaseUrl(match)+sensitivity)
     }
-    
+
+
 //exported for testing
 export const SensitivityNav=({match, history, updateOptions, attributes})=>(
     <Tabs 
