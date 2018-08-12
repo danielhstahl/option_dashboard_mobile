@@ -6,7 +6,7 @@ import {Route, Redirect, Switch} from 'react-router-dom'
 import Screen1 from 'Components/Screen1/Main'
 import Screen2 from 'Components/Screen2/Main'
 import Screen3, {sensitivities} from 'Components/Screen3/Main'
-import {handleHistoryPush} from 'globals/urlUtils'
+import {getBaseUrl} from 'Services/urlUtils'
 
 const handleChange=(match, history)=>(_, value)=>{
   history.push(getBaseUrl(match)+(value+1))

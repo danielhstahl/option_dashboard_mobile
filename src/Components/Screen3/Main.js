@@ -11,7 +11,7 @@ import Tab from '@material-ui/core/Tab'
 import WarningNoValues from 'Components/utils/WarningNoValues'
 import { isEmpty } from 'globals/utils'
 import PropTypes from 'prop-types'
-import {getBaseUrl} from 'globals/urlUtils'
+import {getBaseUrl} from 'Services/urlUtils'
 
 export const sensitivities=[
     {value:'price', label:'Price'},
