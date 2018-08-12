@@ -17,14 +17,7 @@ const maturities=(state=[], action)=>{
             return state
     }
 }
-const assetPrice=(state=null, action)=>{
-    switch(action.type){
-        case ASSET_PRICE:
-            return action.asset
-        default:
-            return state
-    }
-}
+
 const tickers=(state=[], action)=>{
     switch(action.type){
         case TICKERS:
@@ -39,5 +32,4 @@ const tickers=(state=[], action)=>{
 export default combineReducers({
     maturities,
     tickers,
-    assetPrice,
 })

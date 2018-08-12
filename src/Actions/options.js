@@ -9,7 +9,6 @@ import {
     TICKERS,
     SPLINE,
     MARKET_VALUES,
-    ASSET_PRICE,
     LOADING_MATURITY,
     LOADING_TICKER,
     LOADING_SPLINE
@@ -25,10 +24,6 @@ export const getOptionFeatures=dispatch=>ticker=>{
             dispatch({
                 type:OPTION_MATURITIES,
                 maturities:features.expirationDates
-            })
-            dispatch({
-                type:ASSET_PRICE,
-                asset:features.asset
             })
         }).finally(()=>dispatch({
             type:LOADING_MATURITY,

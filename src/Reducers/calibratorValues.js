@@ -12,7 +12,8 @@ const epsilon=.00001
 
 const getOnlyAboveZero=getAboveEpsilon(0)
 
-const spline=(state={}, action)=>{
+//exported for testing purposes
+export const spline=(state={}, action)=>{
     switch(action.type){
         case SPLINE:
             return {

@@ -10,6 +10,9 @@ export const isEmpty=obj=>{
 export const getAboveEpsilon=epsilon=>(arr, key)=>arr.filter(v=>v[key]>epsilon)
 
 export const getSymmetricFromRight=(xKey, yKey, arr, epsilon)=>{
+    if(arr.length===0){
+        return arr
+    }
     const eps=getAboveEpsilon(epsilon)
     const condArr=eps(arr, yKey)
     const lastXVal=condArr[condArr.length-1][xKey]

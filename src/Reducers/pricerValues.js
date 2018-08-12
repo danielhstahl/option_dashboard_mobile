@@ -7,7 +7,9 @@ import {
 } from 'Actions/constants'
 
 import { combineReducers } from 'redux'
-const rBoiler=(type, defaultState=[])=>(state=defaultState, action)=>{
+
+//exported for testing
+export const rBoiler=(type, defaultState=[])=>(state=defaultState, action)=>{
     switch(action.type){
         case type:
             return action.value

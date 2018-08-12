@@ -32,6 +32,10 @@ describe('getSymmetricFromRight', ()=>{
         const expected=[{hello:-2, goodbye:2}, {hello:2, goodbye:3}]
         expect(getSymmetricFromRight('hello', 'goodbye', arr, 0)).toEqual(expected)
     })
+    it('returns empty array when given empty array', ()=>{
+        const arr=[]
+        expect(getSymmetricFromRight('hello', 'goodbye', arr, 0)).toEqual(arr)
+    })
 })
 
 

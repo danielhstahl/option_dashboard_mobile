@@ -1,8 +1,9 @@
-import {attributes} from 'Reducers/calibratorValues'
+import {attributes, spline} from 'Reducers/calibratorValues'
 import {
     MARKET_VALUES,
     CONSTRAINTS,
-    TICKER_VALUE
+    TICKER_VALUE, 
+    SPLINE
 } from 'Actions/constants'
 
 describe('attributes', ()=>{
@@ -58,6 +59,21 @@ describe('attributes', ()=>{
             constraints:undefined, 
             num_u:8, quantile:.01, 
             prices:[], strikes:[]
+        })
+    })
+})
+
+describe('spline', ()=>{
+    it('correctly returns spline object', ()=>{
+        expect(spline(undefined, ({
+            type:SPLINE,
+            spline:{
+                curve:[],
+                points:[]
+            }
+        }))).toEqual({
+            curve:[],
+            points:[]
         })
     })
 })
