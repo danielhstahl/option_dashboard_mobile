@@ -14,6 +14,7 @@ describe('Render', ()=>{
             <Router>
                 <MarketValueTable
                     attributes={{}}
+                    loadingSpline={false}
                 />
             </Router>
         )
@@ -23,6 +24,27 @@ describe('Render', ()=>{
             <Router>
                 <MarketValueTable
                     attributes={{rate:.04, asset:50, maturity:1}}
+                    loadingSpline={false}
+                />
+            </Router>
+        )
+    })
+    it('renders without error when loading with no attributes', ()=>{
+        shallow(
+            <Router>
+                <MarketValueTable
+                    attributes={{}}
+                    loadingSpline={true}
+                />
+            </Router>
+        )
+    })
+    it('renders without error when loading with attributes', ()=>{
+        shallow(
+            <Router>
+                <MarketValueTable
+                    attributes={{rate:.04, asset:50, maturity:1}}
+                    loadingSpline={true}
                 />
             </Router>
         )
@@ -34,6 +56,7 @@ describe('functionality', ()=>{
             <Router>
                 <MarketValueTable
                     attributes={{}}
+                    loadingSpline={false}
                 />
             </Router>
         )
@@ -44,6 +67,29 @@ describe('functionality', ()=>{
             <Router>
                 <MarketValueTable
                     attributes={{rate:.04, asset:50, maturity:1}}
+                    loadingSpline={false}
+                />
+            </Router>
+        )
+        expect(calibratedValueTable.find(Table).length).toEqual(1)
+    })
+    it('has nothing when loadingSpline is true and asset is not', ()=>{
+        const calibratedValueTable=mount(
+            <Router>
+                <MarketValueTable
+                    attributes={{}}
+                    loadingSpline={true}
+                />
+            </Router>
+        )
+        expect(calibratedValueTable.find(Table).length).toEqual(0)
+    })
+    it('has table when loadingSpline is true and asset exists', ()=>{
+        const calibratedValueTable=mount(
+            <Router>
+                <MarketValueTable
+                    attributes={{rate:.04, asset:50, maturity:1}}
+                    loadingSpline={true}
                 />
             </Router>
         )
