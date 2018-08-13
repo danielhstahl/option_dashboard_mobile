@@ -28,6 +28,8 @@ export const spline=(state={}, action)=>{
                     'transformed_option'
                 )
             }
+        case TICKER_VALUE: //reset
+            return {}
         default:
             return state
     }
@@ -77,6 +79,8 @@ const calibrated=(state={}, action)=>{
     switch(action.type){
         case CALIBRATED_PARAMETERS:
             return action.parameters
+        case TICKER_VALUE: //reset
+            return {}
         default:
             return state
     }
