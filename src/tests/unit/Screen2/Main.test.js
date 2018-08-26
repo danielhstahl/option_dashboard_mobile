@@ -1,5 +1,5 @@
 import React from 'react'
-import Screen2 from 'Components/Screen2/Main'
+import Screen2 from 'Components/Screen2'
 import Button from '@material-ui/core/Button'
 import {mount} from 'enzyme'
 import Table from '@material-ui/core/Table'
@@ -10,7 +10,7 @@ import {
 
 import {Provider} from 'react-redux'
 import { createStore } from 'redux'
-import reducer from 'Reducers/reducer'
+import reducer from 'Reducers'
 import {
     CALIBRATED_PARAMETERS,
     MARKET_VALUES,
@@ -20,7 +20,7 @@ import {
     MuiThemeProvider, 
     createMuiTheme 
 } from '@material-ui/core/styles'
-import themeObject from 'Themes/overallTheme'
+import themeObject from 'Themes'
 const theme = createMuiTheme(themeObject)
 
 describe('Render', ()=>{

@@ -1,12 +1,12 @@
 import React from 'react'
-import Screen1 from 'Components/Screen1/Main'
+import Screen1 from 'Components/Screen1'
 import {mount} from 'enzyme'
 import Select from '@material-ui/core/Select'
 import Button from '@material-ui/core/Button'
 import ProgressBar from 'Components/utils/ProgressBar'
 import {Provider} from 'react-redux'
 import { createStore } from 'redux'
-import reducer from 'Reducers/reducer'
+import reducer from 'Reducers'
 import {
     MemoryRouter as Router
 } from 'react-router-dom'

@@ -40,7 +40,7 @@
     "jest-fetch-mock": "^1.6.5",
     "promise.prototype.finally": "^3.1.0"
   },
-  "jest":{
+  "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}",
       "!node_modules",

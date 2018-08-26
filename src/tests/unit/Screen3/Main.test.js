@@ -3,7 +3,7 @@ import {
     SensitivityNav, 
     ChartsScreen, onLoad, 
     updateOptions
-} from 'Components/Screen3/Main'
+} from 'Components/Screen3'
 import {mount} from 'enzyme'
 import Tabs from '@material-ui/core/Tabs'
 import {delay} from 'setupTests'
@@ -15,13 +15,13 @@ import {PutCallChart} from 'Components/Screen3/PutCallChart'
 import WarningNoValues from 'Components/utils/WarningNoValues'
 import {Provider} from 'react-redux'
 import { createStore } from 'redux'
-import reducer from 'Reducers/reducer'
+import reducer from 'Reducers'
 import { 
     MuiThemeProvider, 
     createMuiTheme 
 } from '@material-ui/core/styles'
-import themeObject from 'Themes/overallTheme'
-import { EAFNOSUPPORT } from 'constants';
+import themeObject from 'Themes'
+
 const theme = createMuiTheme(themeObject)
 
 describe('Render SensitivityNav', ()=>{

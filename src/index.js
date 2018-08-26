@@ -10,15 +10,15 @@ import {
 import 'typeface-roboto'
 import {Provider} from 'react-redux'
 import { createStore } from 'redux'
-import reducer from 'Reducers/reducer'
+import reducer from 'Reducers'
 import {
     HashRouter as Router
 } from 'react-router-dom'
-import themeObject from 'Themes/overallTheme'
+import defaultTheme from 'Themes'
 
 const store=createStore(reducer)
 
-const theme = createMuiTheme(themeObject)
+const theme = createMuiTheme(defaultTheme)
 ReactDOM.render(
     <Provider store={store}>
         <MuiThemeProvider theme={theme}>    

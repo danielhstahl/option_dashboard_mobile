@@ -3,9 +3,9 @@ import AppBar from '@material-ui/core/AppBar'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import {Route, Redirect, Switch} from 'react-router-dom'
-import Screen1 from 'Components/Screen1/Main'
-import Screen2 from 'Components/Screen2/Main'
-import Screen3, {sensitivities} from 'Components/Screen3/Main'
+import Screen1 from 'Components/Screen1'
+import Screen2 from 'Components/Screen2'
+import Screen3, {sensitivities} from 'Components/Screen3'
 import {getBaseUrl} from 'Services/urlUtils'
 
 const handleChange=(match, history)=>(_, value)=>{
