@@ -5,43 +5,43 @@ import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import WarningNoValues from 'Components/utils/WarningNoValues'
-import {connect} from 'react-redux'
-import {FIXED_DECIMALS} from 'globals/constants'
+import { connect } from 'react-redux'
+import { FIXED_DECIMALS } from 'globals/constants'
 import PropTypes from 'prop-types'
 //export for testing
-export const MarketValueTable=({
-    attributes, 
-    loadingSpline
-})=>loadingSpline&&!attributes.asset?null:(
-        attributes.asset?<Table>
-            <TableHead>
-                <TableRow>
-                    <TableCell>Asset Price</TableCell>
-                    <TableCell>Risk Free Rate</TableCell>
-                    <TableCell>Years to Maturity</TableCell>
-                </TableRow>
-            </TableHead>
-            <TableBody>
-                <TableRow>
-                    <TableCell>{attributes.asset.toFixed(FIXED_DECIMALS)}</TableCell>
-                    <TableCell>{attributes.rate.toFixed(FIXED_DECIMALS)}</TableCell>
-                    <TableCell>{attributes.maturity.toFixed(FIXED_DECIMALS)}</TableCell>
-                </TableRow>
-            </TableBody>
-        </Table>:<WarningNoValues links={[{to:'/tab/1', label:'Market Prices'}]}/>
-    )
-MarketValueTable.propTypes={
-    attributes:PropTypes.shape({
-        asset:PropTypes.number,
-        rate:PropTypes.number,
-        maturity:PropTypes.number,
-    }),
-    loadingSpline:PropTypes.bool.isRequired
+export const MarketValueTable = ({ attributes, loadingSpline }) =>
+  loadingSpline && !attributes.asset ? null : attributes.asset ? (
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableCell>Asset Price</TableCell>
+          <TableCell>Risk Free Rate</TableCell>
+          <TableCell>Years to Maturity</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <TableCell>{attributes.asset.toFixed(FIXED_DECIMALS)}</TableCell>
+          <TableCell>{attributes.rate.toFixed(FIXED_DECIMALS)}</TableCell>
+          <TableCell>{attributes.maturity.toFixed(FIXED_DECIMALS)}</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
+  ) : (
+    <WarningNoValues links={[{ to: '/tab/1', label: 'Market Prices' }]} />
+  )
+MarketValueTable.propTypes = {
+  attributes: PropTypes.shape({
+    asset: PropTypes.number,
+    rate: PropTypes.number,
+    maturity: PropTypes.number
+  }),
+  loadingSpline: PropTypes.bool.isRequired
 }
 
-const mapStateToProps=({calibratorValues, loading})=>({
-    attributes:calibratorValues.attributes,
-    loadingSpline:loading.splineChart
+const mapStateToProps = ({ calibratorValues, loading }) => ({
+  attributes: calibratorValues.attributes,
+  loadingSpline: loading.splineChart
 })
 
 export default connect(mapStateToProps)(MarketValueTable)

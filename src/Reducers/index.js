@@ -5,9 +5,9 @@ import calibratorValues from './calibratorValues'
 import pricerValues from './pricerValues'
 import loading from './loading'
 export default combineReducers({
-    inputs,
-    marketValues,
-    calibratorValues,
-    pricerValues,
-    loading
+  inputs,
+  marketValues,
+  calibratorValues,
+  pricerValues,
+  loading
 })
