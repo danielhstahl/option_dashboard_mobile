@@ -9,6 +9,8 @@ import { withStyles } from '@material-ui/core/styles'
 import InputLabel from '@material-ui/core/InputLabel'
 import LoadData from '../utils/LoadData'
 import { getCalibrationBounds } from 'Actions/calibrator'
+import { checkIsNative } from 'utils'
+
 import {
   outerStyleInline,
   progressStyle,
@@ -16,7 +18,7 @@ import {
 } from 'globals/progressStyles'
 import ProgressBar from 'Components/utils/ProgressBar'
 import PropTypes from 'prop-types'
-
+const native = checkIsNative()
 //export for testing
 export const SelectTicker = withStyles(inputFieldTheme)(
   ({ onChange, value, onLoad, loadingTicker, options, classes }) => (
@@ -33,7 +35,7 @@ export const SelectTicker = withStyles(inputFieldTheme)(
         <FormControl className={classes.inputField}>
           <InputLabel htmlFor="ticker-helper">Stock Ticker</InputLabel>
           <Select
-            native
+            native={native}
             value={value}
             onChange={onChange}
             inputProps={{

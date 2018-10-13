@@ -8,7 +8,8 @@ import { withStyles } from '@material-ui/core/styles'
 import InputLabel from '@material-ui/core/InputLabel'
 import { getSpline } from 'Actions/options'
 import PropTypes from 'prop-types'
-
+import { checkIsNative } from 'utils'
+const native = checkIsNative()
 //export for testing
 export const SelectMaturity = withStyles(inputFieldTheme)(
   ({ value, options, ticker, onChange, classes }) =>
@@ -16,7 +17,7 @@ export const SelectMaturity = withStyles(inputFieldTheme)(
       <FormControl className={classes.inputField}>
         <InputLabel htmlFor="ticker-helper">Option Maturity</InputLabel>
         <Select
-          native
+          native={native}
           value={value}
           onChange={onChange(ticker)}
           inputProps={{
