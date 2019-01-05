@@ -18,7 +18,7 @@
     "react-flexbox-grid": "^2.1.2",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.4",
+    "react-scripts": "2.1.3",
     "react-swipeable-views": "^0.12.15",
     "recharts": "^1.1.0",
     "redux": "^4.0.0",
@@ -28,7 +28,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start-production": "REACT_APP_CUST=production react-scripts start",
     "start-mock-server": "node mockServer/index",
