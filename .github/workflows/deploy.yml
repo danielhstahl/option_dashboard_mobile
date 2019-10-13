@@ -12,7 +12,9 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Build
-      run: npm run build
+      run: |
+        npm ci
+        npm run build
     - name: Deploy pages
       uses: JamesIves/github-pages-deploy-action@master
       env: 
