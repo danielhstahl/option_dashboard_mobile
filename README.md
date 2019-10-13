@@ -2,8 +2,8 @@
 | :---------------: | :-----------------: |
 | ![lin-badge]      | ![cov-badge]        |
 
-[lin-badge]: https://travis-ci.org/phillyfan1138/option_dashboard_mobile.svg?branch=master "Travis build status"
-[lin-link]:  https://travis-ci.org/phillyfan1138/option_dashboard_mobile "Travis build status"
+[lin-badge]: https://github.com/phillyfan1138/option_dashboard_mobile/workflows/Rust/badge.svg
+[lin-link]:  https://github.com/phillyfan1138/option_dashboard_mobile/actions
 [cov-badge]: https://codecov.io/gh/phillyfan1138/option_dashboard_mobile/branch/master/graph/badge.svg
 [cov-link]:  https://codecov.io/gh/phillyfan1138/option_dashboard_mobile
 
