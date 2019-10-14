@@ -16,6 +16,8 @@ jobs:
         npm ci
         npm test
         npm run build
+      env:
+        CI: true
     - name: Deploy pages
       uses: JamesIves/github-pages-deploy-action@master
       env: 
