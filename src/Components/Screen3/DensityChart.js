@@ -35,7 +35,7 @@ export const getVaR = (riskMetrics, density) => [
   }
 ]
 //exported for testing
-export const DensityChart = withTheme()(
+export const DensityChart = withTheme(
   ({ density, theme, riskMetrics, loadingDensity }) =>
     density.length > 0 && riskMetrics.value_at_risk ? (
       <VictoryChart
