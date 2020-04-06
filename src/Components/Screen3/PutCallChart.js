@@ -18,7 +18,7 @@ import {
 import PropTypes from 'prop-types'
 
 //exported for testing
-export const PutCallChart = withTheme()(
+export const PutCallChart = withTheme(
   ({ call, put, theme, strikes, prices, sensitivity, loadingPutCall }) => {
     const scatter = strikes.map((v, index) => ({
       strike: v,

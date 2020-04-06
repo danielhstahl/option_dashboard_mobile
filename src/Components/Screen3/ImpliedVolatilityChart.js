@@ -19,7 +19,7 @@ import {
 import PropTypes from 'prop-types'
 
 //exported for testing
-export const ImpliedVolatilityChart = withTheme()(
+export const ImpliedVolatilityChart = withTheme(
   ({ impliedVolatility, theme, loadingIV }) =>
     impliedVolatility.length > 0 ? (
       <VictoryChart

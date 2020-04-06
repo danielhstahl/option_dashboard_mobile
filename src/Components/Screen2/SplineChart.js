@@ -17,37 +17,36 @@ import {
 import PropTypes from 'prop-types'
 
 //exported for testing
-export const SplineChart = withTheme()(
-  ({ spline, theme, loadingSpline }) =>
-    spline.curve ? (
-      <VictoryChart
-        animate={animateStyle}
-        containerComponent={<VictoryContainer style={containerStyle} />}
-      >
-        <VictoryLine
-          style={{ data: { stroke: theme.palette.primary.main } }}
-          data={spline.curve}
-          x="log_strike"
-          interpolation="natural"
-          y="transformed_option"
-        />
-        <VictoryScatter
-          style={{ data: { stroke: theme.palette.secondary.main } }}
-          data={spline.points}
-          x="log_strike"
-          interpolation="natural"
-          y="transformed_option"
-        />
-      </VictoryChart>
-    ) : (
-      <div style={outerStyleStandalone}>
-        <ProgressBar
-          loading={loadingSpline}
-          style={progressStyle}
-          size={PROGRESS_SIZE}
-        />
-      </div>
-    )
+export const SplineChart = withTheme(({ spline, theme, loadingSpline }) =>
+  spline.curve ? (
+    <VictoryChart
+      animate={animateStyle}
+      containerComponent={<VictoryContainer style={containerStyle} />}
+    >
+      <VictoryLine
+        style={{ data: { stroke: theme.palette.primary.main } }}
+        data={spline.curve}
+        x="log_strike"
+        interpolation="natural"
+        y="transformed_option"
+      />
+      <VictoryScatter
+        style={{ data: { stroke: theme.palette.secondary.main } }}
+        data={spline.points}
+        x="log_strike"
+        interpolation="natural"
+        y="transformed_option"
+      />
+    </VictoryChart>
+  ) : (
+    <div style={outerStyleStandalone}>
+      <ProgressBar
+        loading={loadingSpline}
+        style={progressStyle}
+        size={PROGRESS_SIZE}
+      />
+    </div>
+  )
 )
 SplineChart.propTypes = {
   spline: PropTypes.shape({

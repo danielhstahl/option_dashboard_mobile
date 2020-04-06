@@ -1,6 +1,6 @@
 import React from 'react'
 import { getCall, getPut, getDensity, getRiskMetrics } from 'Actions/pricer'
-import { Grid, Row, Col } from 'react-flexbox-grid'
+import Box from '@material-ui/core/Box'
 import { connect } from 'react-redux'
 import PutCallChart from './PutCallChart'
 import DensityChart from './DensityChart'
@@ -59,6 +59,8 @@ SensitivityNav.propTypes = {
   updateOptions: PropTypes.func.isRequired,
   attributes: PropTypes.object.isRequired
 }
+const fullWidth = { width: '100%' }
+
 //exported for testing
 export const ChartsScreen = ({
   onLoad,
@@ -69,51 +71,41 @@ export const ChartsScreen = ({
   calibrated
 }) =>
   isEmpty(calibrated) ? (
-    <Grid fluid>
-      <Row>
-        <Col xs={12}>
-          <WarningNoValues
-            links={[
-              { to: '/tab/1', label: 'Market Prices' },
-              { to: '/tab/2', label: 'Calibration' }
-            ]}
-          />
-        </Col>
-      </Row>
-    </Grid>
+    <Box display="flex" flexWrap="wrap">
+      <Box style={fullWidth}>
+        <WarningNoValues
+          links={[
+            { to: '/tab/1', label: 'Market Prices' },
+            { to: '/tab/2', label: 'Calibration' }
+          ]}
+        />
+      </Box>
+    </Box>
   ) : (
     <LoadData
       onLoad={onLoad}
       attributes={attributes}
       sensitivity={match.params.sensitivity}
     >
-      <Grid fluid>
-        <Row>
-          <Col xs={12}>
-            <PutCallChart sensitivity={match.params.sensitivity} />
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={12}>
-            <SensitivityNav
-              match={match}
-              history={history}
-              attributes={attributes}
-              updateOptions={updateOptions}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={12}>
-            <ImpliedVolatilityChart />
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={12}>
-            <DensityChart />
-          </Col>
-        </Row>
-      </Grid>
+      <Box display="flex" flexWrap="wrap">
+        <Box style={fullWidth}>
+          <PutCallChart sensitivity={match.params.sensitivity} />
+        </Box>
+        <Box style={fullWidth}>
+          <SensitivityNav
+            match={match}
+            history={history}
+            attributes={attributes}
+            updateOptions={updateOptions}
+          />
+        </Box>
+        <Box style={fullWidth}>
+          <ImpliedVolatilityChart />
+        </Box>
+        <Box style={fullWidth}>
+          <DensityChart />
+        </Box>
+      </Box>
     </LoadData>
   )
 ChartsScreen.propTypes = {
@@ -168,7 +160,4 @@ const mapDispatchToProps = dispatch => ({
   onLoad: onLoad(dispatch),
   updateOptions: updateOptions(dispatch)
 })
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ChartsScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(ChartsScreen)
